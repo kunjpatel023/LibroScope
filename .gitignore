@@ -1,0 +1,14 @@
+# Frontend
+node_modules
+dist
+
+# Backend
+env
+__pycache__/
+*.pyc
+*.sqlite3
+
+# Common
+.DS_Store
+.vscode
+*.log
