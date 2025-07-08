@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import axios from 'axios';
+import { Link } from 'react-router-dom';
 
 export default function Login() {
   const [form, setForm] = useState({ username: '', password: '' });
@@ -54,14 +55,11 @@ export default function Login() {
           </button>
         </form>
         <p className="text-center text-sm text-gray-400 mt-6">
-        Don’t have an account?{' '}
-        <span
-            onClick={() => navigate('/signup')}
-            className="text-purple-400 hover:underline cursor-pointer"
-        >
-            Sign up
-        </span>
-        </p>
+  Don’t have an account?{' '}
+  <Link to="/signup" className="text-purple-400 hover:underline">
+    Sign up
+  </Link>
+</p>
       </div>
     </div>
   );
