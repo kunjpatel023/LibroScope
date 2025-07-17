@@ -16,11 +16,15 @@ export default function Signup() {
     e.preventDefault();
     setError('');
     try {
-      const res = await axios.post('http://localhost:8000/api/signup/', form);
+      // First signup
+      await axios.post('http://localhost:8000/api/signup/', form);
+
       alert('Signup successful! Please log in.');
-      navigate('/login');
+      navigate('/login'); // ✅ redirect after success
     } catch (err) {
-      setError('Signup failed. Please check your inputs.');
+      setError(
+        err.response?.data?.error || 'Signup failed. Please check your inputs.'
+      );
     }
   };
 
@@ -72,14 +76,14 @@ export default function Signup() {
           </button>
         </form>
         <p className="text-center text-sm text-gray-400 mt-6">
-  Already have an account?{' '}
-  <span
-    onClick={() => navigate('/login')}
-    className="text-purple-400 hover:underline cursor-pointer"
-  >
-    Log in
-  </span>
-</p>
+          Already have an account?{' '}
+          <span
+            onClick={() => navigate('/login')}
+            className="text-purple-400 hover:underline cursor-pointer"
+          >
+            Log in
+          </span>
+        </p>
       </div>
     </motion.div>
   );

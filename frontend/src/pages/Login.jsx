@@ -1,10 +1,11 @@
 import { useState } from 'react';
 import axios from 'axios';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom'; // ✅ import useNavigate
 
 export default function Login() {
   const [form, setForm] = useState({ username: '', password: '' });
   const [error, setError] = useState('');
+  const navigate = useNavigate(); // ✅ initialize navigate
 
   const handleChange = (e) =>
     setForm({ ...form, [e.target.name]: e.target.value });
@@ -16,6 +17,7 @@ export default function Login() {
       const res = await axios.post('http://localhost:8000/api/login/', form);
       localStorage.setItem('token', res.data.token);
       alert('Login successful!');
+      navigate('/dashboard'); // ✅ redirect to dashboard
     } catch (err) {
       setError('Invalid credentials');
     }
@@ -55,11 +57,11 @@ export default function Login() {
           </button>
         </form>
         <p className="text-center text-sm text-gray-400 mt-6">
-  Don’t have an account?{' '}
-  <Link to="/signup" className="text-purple-400 hover:underline">
-    Sign up
-  </Link>
-</p>
+          Don’t have an account?{' '}
+          <Link to="/signup" className="text-purple-400 hover:underline">
+            Sign up
+          </Link>
+        </p>
       </div>
     </div>
   );
