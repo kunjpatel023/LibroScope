@@ -129,18 +129,206 @@
 // }
 
 
+// import React, { useState } from "react";
+// import { useNavigate } from "react-router-dom";
+
+// export default function AuthPage() {
+//   const [isFlipped, setIsFlipped] = useState(false);
+//   const navigate = useNavigate();
+
+//   return (
+//     <div
+//       className="flex items-center justify-center min-h-screen bg-gradient-to-br from-gray-200 to-gray-400 overflow-hidden relative"
+//     >
+//       {/* Back to Home */}
+//       <button
+//         onClick={() => navigate("/")}
+//         className="absolute top-3 left-3 px-3 py-1 bg-white text-gray-700 rounded shadow hover:bg-gray-100"
+//       >
+//         ← Back to Home
+//       </button>
+
+//       {/* Card Container */}
+//       <div
+//         className="relative"
+//         style={{
+//           perspective: "1000px",
+//           width: "400px",
+//           height: "450px",
+//         }}
+//       >
+//         <div
+//           className={`relative w-full h-full transition-transform duration-700 transform-style-preserve-3d ${
+//             isFlipped ? "rotate-y-180" : ""
+//           }`}
+//         >
+//           {/* Login Form */}
+//           <div
+//             className="absolute w-full h-full bg-white rounded-lg shadow-lg p-6 backface-hidden"
+//           >
+//             <h3 className="text-center mb-4 font-bold text-lg text-gray-800">
+//               Login
+//             </h3>
+//             <form>
+//               <div className="mb-4">
+//                 <label className="block text-gray-700">Email</label>
+//                 <input
+//                   type="email"
+//                   className="w-full border border-gray-300 rounded px-3 py-2 mt-1 focus:outline-none focus:ring-2 focus:ring-blue-500"
+//                   placeholder="Enter email"
+//                 />
+//               </div>
+//               <div className="mb-4">
+//                 <label className="block text-gray-700">Password</label>
+//                 <input
+//                   type="password"
+//                   className="w-full border border-gray-300 rounded px-3 py-2 mt-1 focus:outline-none focus:ring-2 focus:ring-blue-500"
+//                   placeholder="Enter password"
+//                 />
+//               </div>
+//               <button
+//                 type="submit"
+//                 onClick={() => navigate("/dashboard")}
+//                 className="w-full bg-blue-500 hover:bg-blue-600 text-white py-2 rounded mb-3"
+//               >
+//                 Login
+//               </button>
+//             </form>
+//             <p className="text-center text-gray-700">
+//               Don't have an account?{" "}
+//               <button
+//                 onClick={() => setIsFlipped(true)}
+//                 className="text-blue-500 hover:underline"
+//               >
+//                 Sign up
+//               </button>
+//             </p>
+//           </div>
+
+//           {/* Signup Form */}
+//           <div
+//             className="absolute w-full h-full bg-white rounded-lg shadow-lg p-6 backface-hidden transform rotate-y-180"
+//           >
+//             <h3 className="text-center mb-4 font-bold text-lg text-gray-800">
+//               Sign Up
+//             </h3>
+//             <form>
+//               <div className="mb-4">
+//                 <label className="block text-gray-700">Full Name</label>
+//                 <input
+//                   type="text"
+//                   className="w-full border border-gray-300 rounded px-3 py-2 mt-1 focus:outline-none focus:ring-2 focus:ring-green-500"
+//                   placeholder="Enter full name"
+//                 />
+//               </div>
+//               <div className="mb-4">
+//                 <label className="block text-gray-700">Email</label>
+//                 <input
+//                   type="email"
+//                   className="w-full border border-gray-300 rounded px-3 py-2 mt-1 focus:outline-none focus:ring-2 focus:ring-green-500"
+//                   placeholder="Enter email"
+//                 />
+//               </div>
+//               <div className="mb-4">
+//                 <label className="block text-gray-700">Password</label>
+//                 <input
+//                   type="password"
+//                   className="w-full border border-gray-300 rounded px-3 py-2 mt-1 focus:outline-none focus:ring-2 focus:ring-green-500"
+//                   placeholder="Create password"
+//                 />
+//               </div>
+//               <button
+//                 type="submit"
+//                 onClick={() => navigate("/dashboard")}
+//                 className="w-full bg-green-500 hover:bg-green-600 text-white py-2 rounded mb-3"
+//               >
+//                 Sign Up
+//               </button>
+//             </form>
+//             <p className="text-center text-gray-700">
+//               Already have an account?{" "}
+//               <button
+//                 onClick={() => setIsFlipped(false)}
+//                 className="text-green-500 hover:underline"
+//               >
+//                 Login
+//               </button>
+//             </p>
+//           </div>
+//         </div>
+//       </div>
+
+//       {/* Extra CSS for flip effect */}
+//       <style>{`
+//         .transform-style-preserve-3d {
+//           transform-style: preserve-3d;
+//         }
+//         .backface-hidden {
+//           backface-visibility: hidden;
+//         }
+//         .rotate-y-180 {
+//           transform: rotateY(180deg);
+//         }
+//       `}</style>
+//     </div>
+//   );
+// }
+
+
+
+
+
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 export default function AuthPage() {
   const [isFlipped, setIsFlipped] = useState(false);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [fullName, setFullName] = useState("");
+  const [error, setError] = useState("");
   const navigate = useNavigate();
 
+  const BASE_URL = "http://127.0.0.1:8000/api"; // Django backend
+
+  // Login handler
+  // Login handler
+const handleLogin = async (e) => {
+    e.preventDefault();
+    setError("");
+    try {
+      const res = await axios.post(`${BASE_URL}/login/`, {
+        email: email,
+        password: password,
+      });
+      localStorage.setItem("access", res.data.access);
+      localStorage.setItem("refresh", res.data.refresh);
+      navigate("/dashboard");
+    } catch (err) {
+      setError("Invalid login credentials");
+    }
+  };
+  
+  // Signup handler
+  const handleSignup = async (e) => {
+    e.preventDefault();
+    setError("");
+    try {
+      await axios.post(`${BASE_URL}/register/`, {
+        username: fullName, // assuming username is full name
+        email: email,
+        password: password,
+      });
+      alert("Account created! Please login.");
+      setIsFlipped(false);
+    } catch (err) {
+      setError("Error creating account");
+    }
+  };
+
   return (
-    <div
-      className="flex items-center justify-center min-h-screen bg-gradient-to-br from-gray-200 to-gray-400 overflow-hidden relative"
-    >
-      {/* Back to Home */}
+    <div className="flex items-center justify-center min-h-screen bg-gradient-to-br from-gray-200 to-gray-400 overflow-hidden relative">
       <button
         onClick={() => navigate("/")}
         className="absolute top-3 left-3 px-3 py-1 bg-white text-gray-700 rounded shadow hover:bg-gray-100"
@@ -148,57 +336,51 @@ export default function AuthPage() {
         ← Back to Home
       </button>
 
-      {/* Card Container */}
-      <div
-        className="relative"
-        style={{
-          perspective: "1000px",
-          width: "400px",
-          height: "450px",
-        }}
-      >
+      <div style={{ perspective: "1000px", width: "400px", height: "450px" }}>
         <div
           className={`relative w-full h-full transition-transform duration-700 transform-style-preserve-3d ${
             isFlipped ? "rotate-y-180" : ""
           }`}
         >
           {/* Login Form */}
-          <div
-            className="absolute w-full h-full bg-white rounded-lg shadow-lg p-6 backface-hidden"
-          >
+          <div className="absolute w-full h-full bg-white rounded-lg shadow-lg p-6 backface-hidden">
             <h3 className="text-center mb-4 font-bold text-lg text-gray-800">
               Login
             </h3>
-            <form>
+            <form onSubmit={handleLogin}>
               <div className="mb-4">
-                <label className="block text-gray-700">Email</label>
+                <label>Email</label>
                 <input
                   type="email"
-                  className="w-full border border-gray-300 rounded px-3 py-2 mt-1 focus:outline-none focus:ring-2 focus:ring-blue-500"
-                  placeholder="Enter email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  className="w-full border rounded px-3 py-2"
+                  required
                 />
               </div>
               <div className="mb-4">
-                <label className="block text-gray-700">Password</label>
+                <label>Password</label>
                 <input
                   type="password"
-                  className="w-full border border-gray-300 rounded px-3 py-2 mt-1 focus:outline-none focus:ring-2 focus:ring-blue-500"
-                  placeholder="Enter password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  className="w-full border rounded px-3 py-2"
+                  required
                 />
               </div>
+              {error && <p className="text-red-500">{error}</p>}
               <button
                 type="submit"
-                onClick={() => navigate("/dashboard")}
-                className="w-full bg-blue-500 hover:bg-blue-600 text-white py-2 rounded mb-3"
+                className="w-full bg-blue-500 text-white py-2 rounded"
               >
                 Login
               </button>
             </form>
-            <p className="text-center text-gray-700">
+            <p className="text-center mt-2">
               Don't have an account?{" "}
               <button
                 onClick={() => setIsFlipped(true)}
-                className="text-blue-500 hover:underline"
+                className="text-blue-500"
               >
                 Sign up
               </button>
@@ -206,50 +388,54 @@ export default function AuthPage() {
           </div>
 
           {/* Signup Form */}
-          <div
-            className="absolute w-full h-full bg-white rounded-lg shadow-lg p-6 backface-hidden transform rotate-y-180"
-          >
+          <div className="absolute w-full h-full bg-white rounded-lg shadow-lg p-6 backface-hidden transform rotate-y-180">
             <h3 className="text-center mb-4 font-bold text-lg text-gray-800">
               Sign Up
             </h3>
-            <form>
+            <form onSubmit={handleSignup}>
               <div className="mb-4">
-                <label className="block text-gray-700">Full Name</label>
+                <label>Full Name</label>
                 <input
                   type="text"
-                  className="w-full border border-gray-300 rounded px-3 py-2 mt-1 focus:outline-none focus:ring-2 focus:ring-green-500"
-                  placeholder="Enter full name"
+                  value={fullName}
+                  onChange={(e) => setFullName(e.target.value)}
+                  className="w-full border rounded px-3 py-2"
+                  required
                 />
               </div>
               <div className="mb-4">
-                <label className="block text-gray-700">Email</label>
+                <label>Email</label>
                 <input
                   type="email"
-                  className="w-full border border-gray-300 rounded px-3 py-2 mt-1 focus:outline-none focus:ring-2 focus:ring-green-500"
-                  placeholder="Enter email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  className="w-full border rounded px-3 py-2"
+                  required
                 />
               </div>
               <div className="mb-4">
-                <label className="block text-gray-700">Password</label>
+                <label>Password</label>
                 <input
                   type="password"
-                  className="w-full border border-gray-300 rounded px-3 py-2 mt-1 focus:outline-none focus:ring-2 focus:ring-green-500"
-                  placeholder="Create password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  className="w-full border rounded px-3 py-2"
+                  required
                 />
               </div>
+              {error && <p className="text-red-500">{error}</p>}
               <button
                 type="submit"
-                onClick={() => navigate("/dashboard")}
-                className="w-full bg-green-500 hover:bg-green-600 text-white py-2 rounded mb-3"
+                className="w-full bg-green-500 text-white py-2 rounded"
               >
                 Sign Up
               </button>
             </form>
-            <p className="text-center text-gray-700">
+            <p className="text-center mt-2">
               Already have an account?{" "}
               <button
                 onClick={() => setIsFlipped(false)}
-                className="text-green-500 hover:underline"
+                className="text-green-500"
               >
                 Login
               </button>
@@ -258,7 +444,6 @@ export default function AuthPage() {
         </div>
       </div>
 
-      {/* Extra CSS for flip effect */}
       <style>{`
         .transform-style-preserve-3d {
           transform-style: preserve-3d;
