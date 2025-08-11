@@ -296,7 +296,6 @@ export default function Sidebar() {
     { name: 'Profile', icon: <FaUser />, path: '/profile' },
     { name: 'About', icon: <FaInfoCircle />, path: '/about' },
     { name: 'Contact', icon: <FaPhoneAlt />, path: '/contact' },
-    { name: 'Settings', icon: <FaCog />, path: '/settings' },
     { name: 'Pricing', icon: <FaUser />, path: '/subscription' },
 
   ];
