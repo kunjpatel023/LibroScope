@@ -1,39 +1,3 @@
-// import React, { useState, useEffect } from 'react'
-// import { useParams, useNavigate } from 'react-router-dom'
-// import { Document, Page, pdfjs } from 'react-pdf'
-// pdfjs.GlobalWorkerOptions.workerSrc = `//unpkg.com/pdfjs-dist@2.16.105/build/pdf.worker.min.js`
-
-// export default function BookReader(){
-//   const { id } = useParams()
-//   const nav = useNavigate()
-//   const [numPages, setNumPages] = useState(null)
-//   const [page, setPage] = useState(1)
-//   const pdfPath = '/books/sample.pdf' // put a sample PDF into public/books/
-
-//   function onDocumentLoadSuccess({ numPages }) {
-//     setNumPages(numPages)
-//     setPage(1)
-//   }
-
-//   return (
-//     <div className="min-h-screen bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100">
-//       <div className="p-4 border-b dark:border-gray-800 flex items-center gap-4">
-//         <button onClick={() => nav('/dashboard')} className="px-3 py-2 bg-primary text-white rounded">Back to Dashboard</button>
-//         <div className="ml-auto flex gap-2 items-center">
-//           <button onClick={() => setPage(p => Math.max(1, p - 1))} className="px-3 py-1 bg-gray-200 rounded">Prev</button>
-//           <span>{page} / {numPages || '-'}</span>
-//           <button onClick={() => setPage(p => Math.min(numPages || p+1, p + 1))} className="px-3 py-1 bg-gray-200 rounded">Next</button>
-//         </div>
-//       </div>
-
-//       <main className="reader-content py-8">
-//         <Document file={pdfPath} onLoadSuccess={onDocumentLoadSuccess}>
-//           <Page pageNumber={page} />
-//         </Document>
-//       </main>
-//     </div>
-//   )
-// }
 import React, { useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { Document, Page, pdfjs } from 'react-pdf';
