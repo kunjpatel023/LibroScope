@@ -33,45 +33,53 @@ export default function SummaryTranslation() {
     }
   };
 
-  // Generate summary (called from Step 1 "Generate Summary" button)
-  const handleGenerateSummary = async () => {
-    if (!file) {
-      alert("Please upload a document first");
-      return;
+// Generate summary (called from Step 1 "Generate Summary" button)
+const handleGenerateSummary = async () => {
+  if (!file) {
+    alert("Please upload a document first");
+    return;
+  }
+
+  setLoading(true);
+  try {
+    const formData = new FormData();
+    formData.append("pdf", file); // 🔹 key changed to match backend
+
+    const headers = {};
+    const token = localStorage.getItem("access");
+    if (token) headers["Authorization"] = `Bearer ${token}`;
+
+    const res = await fetch(`${BASE_URL}/summarize/`, {
+      method: "POST",
+      headers, // no Content-Type — FormData sets it
+      body: formData,
+    });
+
+    if (!res.ok) {
+      const err = await res.text();
+      throw new Error(err || "Failed to summarize");
     }
 
-    setLoading(true);
-    try {
-      const formData = new FormData();
-      formData.append("file", file);
+    const data = await res.json();
+    setSummary(data.summary || "");
+    setSummaryId(data.summary_id || null);
+    setTranslatedText("");
 
-      const headers = {};
-      const token = localStorage.getItem("access");
-      if (token) headers["Authorization"] = `Bearer ${token}`;
-
-      const res = await fetch(`${BASE_URL}/summarize/`, {
-        method: "POST",
-        headers,
-        body: formData,
-      });
-
-      if (!res.ok) {
-        const err = await res.text();
-        throw new Error(err || "Failed to summarize");
-      }
-
-      const data = await res.json();
-      setSummary(data.summary || "");
-      setSummaryId(data.summary_id || null);
-      setTranslatedText("");
-      setCurrentStep(2); // move to summary step
-    } catch (err) {
-      console.error("Summarize error:", err);
-      alert("Error generating summary: " + (err.message || ""));
-    } finally {
-      setLoading(false);
+    if (data.cached) {
+      console.log("📂 Summary fetched from DB");
+    } else {
+      console.log("✨ New summary generated and stored");
     }
-  };
+
+    setCurrentStep(2); // Move to summary step
+  } catch (err) {
+    console.error("Summarize error:", err);
+    alert("Error generating summary: " + (err.message || ""));
+  } finally {
+    setLoading(false);
+  }
+};
+
 
   // From Step 2: 'Translate' button will simply move to Step 3 (UI)
   const moveToTranslateStep = () => {

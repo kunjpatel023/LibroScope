@@ -1,23 +1,3 @@
-// import React from 'react'
-// import { useNavigate } from 'react-router-dom'
-
-// export default function BookCard({ book }) {
-//   const nav = useNavigate()
-//   return (
-//     <div onClick={() => nav(`/book/${book.id}`)} className="card-hover cursor-pointer bg-white dark:bg-gray-800 rounded-lg p-4 shadow hover:shadow-lg transition">
-//       <div className="h-44 bg-gray-100 dark:bg-gray-700 rounded overflow-hidden mb-3">
-//         <img src={book.image || '/images/book1.jpg'} alt={book.title} className="w-full h-full object-cover" />
-//       </div>
-//       <h4 className="font-semibold">{book.title}</h4>
-//       <p className="text-sm text-gray-500 dark:text-gray-400">{book.author}</p>
-//       <div className="mt-3 flex gap-2 text-xs">
-//         {book.tags?.slice(0,3).map(t => <span key={t} className="px-2 py-1 rounded bg-primary/10 text-primary">{t}</span>)}
-//       </div>
-//     </div>
-//   )
-// }
-
-
 import React from 'react'
 import { FaStar } from 'react-icons/fa'
 import { Link } from 'react-router-dom'
