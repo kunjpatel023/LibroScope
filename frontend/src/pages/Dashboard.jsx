@@ -107,7 +107,6 @@
 // import { motion } from "framer-motion";
 
 // export default function Dashboard() {
-//   const [searchTerm, setSearchTerm] = useState("");
 //   const [view, setView] = useState("grid");
 //   const [darkMode, setDarkMode] = useState(false);
 
@@ -148,32 +147,27 @@
 //     },
 //   ];
 
-//   const filteredBooks = booksData.filter(
-//     (book) =>
-//       book.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-//       book.author.toLowerCase().includes(searchTerm.toLowerCase()) ||
-//       book.category.toLowerCase().includes(searchTerm.toLowerCase())
+//   // Filter books based on search query
+//   const filteredBooks = booksData.filter((book) =>
+//     book.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+//     book.author.toLowerCase().includes(searchQuery.toLowerCase())
 //   );
 
 //   return (
-//     <div
-//       className={`flex flex-col w-full min-h-screen transition-colors ${
-//         darkMode
-//           ? "bg-gray-900 text-gray-100"
-//           : "bg-gradient-to-br from-gray-200 to-gray-400 text-gray-900"
-//       }`}
-//     >
-//       {/* 🔹 Topbar */}
-//       <div className="flex items-center justify-between bg-white dark:bg-gray-800 p-4 shadow rounded-lg m-4">
-//         {/* Search Bar */}
-//         <div className="flex items-center bg-gray-100 dark:bg-gray-700 rounded-full px-3 py-2 w-1/3">
-//           <FaSearch className="text-gray-400 mr-2" />
-//           <input
-//             type="text"
-//             placeholder="Search your library..."
-//             value={searchTerm}
-//             onChange={(e) => setSearchTerm(e.target.value)}
-//             className="bg-transparent outline-none w-full text-sm text-gray-700 dark:text-gray-200"
+//     <div className="flex min-h-screen w-full bg-gray-50 dark:bg-gray-900">
+//       {/* Sidebar */}
+//       <Sidebar collapsed={isSidebarCollapsed} setCollapsed={setIsSidebarCollapsed} />
+
+//       {/* Main content wrapper */}
+//       <div className="flex flex-col flex-1 w-full overflow-hidden">
+//         {/* Topbar */}
+//         <div className="p-4">
+//           <TopbarDashboard
+//             view={view}
+//             setView={setView}
+//             username={username}
+//             searchQuery={searchQuery}
+//             setSearchQuery={setSearchQuery}
 //           />
 //         </div>
 
@@ -286,161 +280,98 @@
 
 
 
-
-import React, { useState, useEffect } from "react";
-import { FaSearch, FaTh, FaList, FaMoon, FaBell, FaUser } from "react-icons/fa";
+import React, { useState } from "react";
+import Sidebar from "../components/Sidebar";
+import TopbarDashboard from "../components/TopbarDashboard";
 import { motion } from "framer-motion";
-import BookCard from "../components/BookCard"; // adjust path if needed
+import { FaBookmark } from "react-icons/fa";
+import BookCard from "../components/BookCard";
 
 export default function Dashboard() {
-  const [searchTerm, setSearchTerm] = useState("");
   const [view, setView] = useState("grid");
-  const [darkMode, setDarkMode] = useState(false);
+  const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
+  const [searchQuery, setSearchQuery] = useState("");
+  const username = "John Doe";
 
-  // Apply dark mode
-  useEffect(() => {
-    document.documentElement.classList.toggle("dark", darkMode);
-  }, [darkMode]);
-
-  // ✅ Make sure these paths match `public/images` folder
   const booksData = [
-    {
-      id: 1,
-      title: "The Great Gatsby",
-      author: "F. Scott Fitzgerald",
-      category: "Classic",
-      rating: 4.5,
-      image: "/images/crime2.jpeg",
-    },
-    {
-      id: 2,
-      title: "1984",
-      author: "George Orwell",
-      category: "Dystopian",
-      rating: 4.8,
-      image: "/images/book2.jpeg",
-    },
-    {
-      id: 3,
-      title: "The Alchemist",
-      author: "Paulo Coelho",
-      category: "Fiction",
-      rating: 4.2,
-      image: "/images/book3.jpeg",
-    },
-    {
-      id: 4,
-      title: "To Kill a Mockingbird",
-      author: "Harper Lee",
-      category: "Classic",
-      rating: 4.7,
-      image: "/images/book4.jpeg",
-    },
+    { title: "The Great Gatsby", author: "F. Scott Fitzgerald", category: "Classic", image: "/images/book1.jpeg" },
+    { title: "1984", author: "George Orwell", category: "Dystopian", image: "/images/book2.jpeg" },
+    { title: "The Alchemist", author: "Paulo Coelho", category: "Fiction", image: "/images/book3.jpeg" },
+    { title: "Romeo & Juliet", author: "William Shakespeare", category: "Drama", image: "/images/book4.jpeg" },
   ];
 
-  const filteredBooks = booksData.filter(
-    (book) =>
-      book.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      book.author.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      book.category.toLowerCase().includes(searchTerm.toLowerCase())
+  // Filter books based on search query
+  const filteredBooks = booksData.filter((book) =>
+    book.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+    book.author.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
   return (
-    <div
-      className={`flex flex-col w-full min-h-screen transition-colors ${
-        darkMode
-          ? "bg-gray-900 text-gray-100"
-          : "bg-gradient-to-br from-gray-200 to-gray-400 text-gray-900"
-      }`}
-    >
-      {/* 🔹 Topbar */}
-      <div className="flex items-center justify-between bg-white dark:bg-gray-800 p-4 shadow rounded-lg m-4">
-        {/* Search Bar */}
-        <div className="flex items-center bg-gray-100 dark:bg-gray-700 rounded-full px-3 py-2 w-1/3">
-          <FaSearch className="text-gray-400 mr-2" />
-          <input
-            type="text"
-            placeholder="Search your library..."
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-            className="bg-transparent outline-none w-full text-sm text-gray-700 dark:text-gray-200"
+    <div className="flex min-h-screen w-full bg-gray-50 dark:bg-gray-900">
+      {/* Sidebar */}
+      <Sidebar collapsed={isSidebarCollapsed} setCollapsed={setIsSidebarCollapsed} />
+
+      {/* Main content wrapper */}
+      <div className="flex flex-col flex-1 w-full overflow-hidden">
+        {/* Topbar */}
+        <div className="p-4">
+          <TopbarDashboard
+            view={view}
+            setView={setView}
+            username={username}
+            searchQuery={searchQuery}
+            setSearchQuery={setSearchQuery}
           />
         </div>
 
-        {/* Grid/List Toggle */}
-        <div className="flex items-center gap-4">
-          <div className="flex bg-gray-100 dark:bg-gray-700 rounded-full p-1">
-            <button
-              onClick={() => setView("grid")}
-              className={`p-2 rounded-full ${
-                view === "grid"
-                  ? "bg-gradient-to-r from-cyan-400 via-blue-500 to-indigo-600 text-white"
-                  : "text-gray-500"
-              }`}
-            >
-              <FaTh />
-            </button>
-            <button
-              onClick={() => setView("list")}
-              className={`p-2 rounded-full ${
-                view === "list"
-                  ? "bg-gradient-to-r from-blue-500 to-purple-500 text-white"
-                  : "text-gray-500"
-              }`}
-            >
-              <FaList />
-            </button>
-          </div>
+        {/* Book content */}
+        <div className="flex-1 p-6 overflow-y-auto">
+          {view === "grid" ? (
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 w-full">
+              {filteredBooks.map((book, i) => (
+                <motion.div
+                  key={i}
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: i * 0.05 }}
+                  className="relative group"
+                >
+                  <BookCard book={book} />
 
-          {/* Dark Mode Toggle */}
-          <FaMoon
-            className="text-gray-600 dark:text-yellow-400 text-lg cursor-pointer"
-            onClick={() => setDarkMode(!darkMode)}
-          />
-
-          {/* Notifications */}
-          <div className="relative">
-            <FaBell className="text-gray-600 dark:text-gray-300 text-lg cursor-pointer" />
-            <span className="absolute top-0 right-0 bg-red-500 rounded-full h-2 w-2"></span>
-          </div>
+                  {/* Hover actions */}
+                </motion.div>
+              ))}
+            </div>
+          ) : (
+            <div className="flex flex-col gap-4 w-full">
+              {filteredBooks.map((book, i) => (
+                <motion.div
+                  key={i}
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: i * 0.05 }}
+                  className="flex items-center justify-between bg-white dark:bg-gray-800 rounded-lg shadow-md hover:shadow-lg transition-all overflow-hidden w-full p-4"
+                >
+                  <div className="flex items-center gap-4">
+                    <img src={book.image} alt={book.title} className="w-20 h-20 object-cover rounded" />
+                    <div>
+                      <h2 className="text-lg font-semibold">{book.title}</h2>
+                      <p className="text-sm text-gray-600 dark:text-gray-400">{book.author}</p>
+                    </div>
+                  </div>
+                  <div className="flex gap-2">
+                    <button className="p-2 bg-white dark:bg-gray-700 rounded-full shadow hover:scale-105 transition">
+                      <FaBookmark className="text-blue-500" />
+                    </button>
+                    <button className="px-3 py-1 bg-gradient-to-r from-blue-500 to-purple-500 text-white rounded-full shadow hover:scale-105 transition">
+                      Read Now
+                    </button>
+                  </div>
+                </motion.div>
+              ))}
+            </div>
+          )}
         </div>
-
-        {/* Profile */}
-        <div className="flex items-center gap-2 bg-gradient-to-r from-cyan-400 via-blue-500 to-indigo-600 px-3 py-1 rounded-full text-white">
-          <FaUser />
-          <span>Welcome, User</span>
-        </div>
-      </div>
-
-      {/* 🔹 Books Section */}
-      <div className="p-6">
-        {view === "grid" ? (
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6">
-            {filteredBooks.map((book, index) => (
-              <motion.div
-                key={book.id}
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: index * 0.05 }}
-              >
-                <BookCard book={book} />
-              </motion.div>
-            ))}
-          </div>
-        ) : (
-          <div className="flex flex-col gap-4">
-            {filteredBooks.map((book, index) => (
-              <motion.div
-                key={book.id}
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: index * 0.05 }}
-              >
-                <BookCard book={book} />
-              </motion.div>
-            ))}
-          </div>
-        )}
       </div>
     </div>
   );
