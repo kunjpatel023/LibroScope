@@ -15,7 +15,7 @@ export default function LandingPage({ toggleDark, dark }) {
       <section
         id="home"
         style={sectionStyle}
-        className="relative text-center flex items-center justify-center min-h-screen pt-28 px-6 bg-gradient-to-r from-cyan-400 via-blue-500 to-indigo-600 "
+        className="relative text-center flex items-center justify-center min-h-screen pt-28 px-6 bg-gradient-to-br from-gray-200 to-gray-400 "
       >
          {/* <section
         id="home"
@@ -27,7 +27,7 @@ export default function LandingPage({ toggleDark, dark }) {
             ⚡ AI-Powered Reading Experience
           </div>
 
-          <h1 className="mt-6 text-5xl md:text-7xl font-extrabold leading-tight bg-gradient-to-r from-purple-500 to-pink-500 bg-clip-text text-transparent">
+          <h1 className="mt-6 text-5xl md:text-7xl font-extrabold leading-tight bg-gradient-to-r from-purple-500 to-blue-500 bg-clip-text text-transparent">
             SmartShelf
           </h1>
 
