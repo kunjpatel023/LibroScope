@@ -140,3 +140,12 @@ REST_FRAMEWORK = {
     ),
 }
 
+
+
+# --------------------------------- token increse time limit ----------------------------------
+from datetime import timedelta
+
+SIMPLE_JWT = {
+    'ACCESS_TOKEN_LIFETIME': timedelta(hours=5),  # ⏳ Increase from default 5 min
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=7),  # Keep for a week
+}
