@@ -112,18 +112,6 @@ def update_profile(request):
     user.save()
     return Response({"message": "Profile updated successfully"})
 
-
-# @api_view(["POST"])
-# @permission_classes([IsAuthenticated])
-# def add_bookmark(request, book_id):
-#     try:
-#         book = Book.objects.get(id=book_id)
-#         BookmarkedBook.objects.get_or_create(user=request.user, book=book)
-#         return Response({"message": "Book bookmarked"})
-#     except Book.DoesNotExist:
-#         return Response({"error": "Book not found"}, status=404)
-
-
 @api_view(["POST"])
 @permission_classes([IsAuthenticated])
 def mark_book_as_completed(request, book_id):
