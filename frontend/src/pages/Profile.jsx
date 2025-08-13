@@ -181,3 +181,189 @@ export default function About() {
     </div>
   );
 }
+
+
+
+
+
+
+// /// src/pages/Profile.jsx
+// import React, { useState, useEffect } from "react";
+// import { ArrowLeft, Mail, BookOpen, Star, Heart } from "lucide-react";
+// import { Link } from "react-router-dom";
+// import axios from "axios";
+
+// export default function Profile() {
+//   const [profile, setProfile] = useState({
+//     name: "",
+//     email: "",
+//     plan: "Premium Plan",
+//     booksRead: 3,
+//     bookmarked: 2,
+//   });
+
+//   const [isEditing, setIsEditing] = useState(false);
+//   const [tempProfile, setTempProfile] = useState(profile);
+
+//   // Fetch profile from backend
+//   useEffect(() => {
+//     const token = localStorage.getItem("access");
+//     if (!token) return;
+
+//     axios
+//       .get("http://127.0.0.1:8000/api/accounts/profile/", {
+//         headers: {
+//           Authorization: `Bearer ${token}`,
+//         },
+//       })
+//       .then((res) => {
+//         setProfile({
+//           name: res.data.username,
+//           email: res.data.email,
+//           plan: "Premium Plan",
+//           booksRead: 3,
+//           bookmarked: 2,
+//         });
+//         setTempProfile({
+//           name: res.data.username,
+//           email: res.data.email,
+//           plan: "Premium Plan",
+//           booksRead: 3,
+//           bookmarked: 2,
+//         });
+//       })
+//       .catch((err) => {
+//         console.error("Error fetching profile:", err);
+//       });
+//   }, []);
+
+//   const handleChange = (e) => {
+//     const { name, value } = e.target;
+//     setTempProfile({ ...tempProfile, [name]: value });
+//   };
+
+//   const handleSave = () => {
+//     setProfile(tempProfile);
+//     setIsEditing(false);
+//     // TODO: Send PATCH to backend for actual update
+//   };
+
+//   const handleCancel = () => {
+//     setTempProfile(profile);
+//     setIsEditing(false);
+//   };
+
+//   return (
+//     <div className="min-h-screen bg-gradient-to-b from-gray-100 to-gray-200 p-6">
+//       {/* Back Link */}
+//       <div className="flex items-center mb-6">
+//         <Link to="/dashboard" className="flex items-center text-gray-600 hover:text-gray-900">
+//           <ArrowLeft className="w-5 h-5 mr-2" />
+//           Back to Dashboard
+//         </Link>
+//       </div>
+
+//       {/* Main Profile Layout */}
+//       <div className="max-w-7xl mx-auto">
+//         <h1 className="text-3xl font-bold mb-6">Profile</h1>
+//         <div className="grid md:grid-cols-3 gap-8">
+
+//           {/* Left Profile Card */}
+//           <div className="bg-white rounded-xl shadow p-6 flex flex-col items-center">
+//             {/* Profile Icon */}
+//             <div className="relative">
+//               <div className="w-24 h-24 bg-gray-200 rounded-full flex items-center justify-center text-4xl">
+//                 👤
+//               </div>
+//             </div>
+
+//             {isEditing ? (
+//               <>
+//                 <input
+//                   type="text"
+//                   name="name"
+//                   value={tempProfile.name}
+//                   onChange={handleChange}
+//                   className="mt-4 px-3 py-2 border rounded w-full"
+//                 />
+//                 <input
+//                   type="email"
+//                   name="email"
+//                   value={tempProfile.email}
+//                   onChange={handleChange}
+//                   className="mt-2 px-3 py-2 border rounded w-full"
+//                 />
+//               </>
+//             ) : (
+//               <>
+//                 <h2 className="mt-4 text-xl font-bold">{profile.name}</h2>
+//                 <p className="text-gray-500">{profile.email}</p>
+//               </>
+//             )}
+
+//             {isEditing ? (
+//               <div className="mt-4 flex space-x-2">
+//                 <button
+//                   onClick={handleSave}
+//                   className="px-4 py-2 bg-green-500 text-white rounded-full hover:bg-green-600"
+//                 >
+//                   Save
+//                 </button>
+//                 <button
+//                   onClick={handleCancel}
+//                   className="px-4 py-2 bg-gray-400 text-white rounded-full hover:bg-gray-500"
+//                 >
+//                   Cancel
+//                 </button>
+//               </div>
+//             ) : (
+//               <button
+//                 onClick={() => setIsEditing(true)}
+//                 className="mt-4 px-4 py-2 bg-purple-500 text-white rounded-full hover:bg-purple-600"
+//               >
+//                 Edit Profile
+//               </button>
+//             )}
+
+//             <div className="mt-6 space-y-2 w-full text-gray-600">
+//               <p className="flex items-center">
+//                 <Mail className="w-4 h-4 mr-2" /> {profile.plan}
+//               </p>
+//               <p className="flex items-center">
+//                 <BookOpen className="w-4 h-4 mr-2" /> {profile.booksRead} Books Read
+//               </p>
+//             </div>
+//           </div>
+
+//           {/* Right Stats Card */}
+//           <div className="md:col-span-2 bg-white rounded-xl shadow p-6">
+//             <h2 className="text-xl font-bold mb-4">Reading Stats</h2>
+//             <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+//               <div className="bg-gray-100 p-4 rounded-lg text-center">
+//                 <BookOpen className="mx-auto w-6 h-6 text-indigo-500 mb-2" />
+//                 <p className="text-lg font-bold">{profile.booksRead}</p>
+//                 <p className="text-sm text-gray-500">Books Read</p>
+//               </div>
+//               <div className="bg-gray-100 p-4 rounded-lg text-center">
+//                 <Star className="mx-auto w-6 h-6 text-yellow-500 mb-2" />
+//                 <p className="text-lg font-bold">4.8</p>
+//                 <p className="text-sm text-gray-500">Average Rating</p>
+//               </div>
+//               <div className="bg-gray-100 p-4 rounded-lg text-center">
+//                 <Heart className="mx-auto w-6 h-6 text-red-500 mb-2" />
+//                 <p className="text-lg font-bold">{profile.bookmarked}</p>
+//                 <p className="text-sm text-gray-500">Bookmarked</p>
+//               </div>
+//               <div className="bg-gray-100 p-4 rounded-lg text-center">
+//                 <Mail className="mx-auto w-6 h-6 text-green-500 mb-2" />
+//                 <p className="text-lg font-bold">2025</p>
+//                 <p className="text-sm text-gray-500">Reading Year</p>
+//               </div>
+//             </div>
+//           </div>
+
+//         </div>
+//       </div>
+//     </div>
+//   );
+// }
