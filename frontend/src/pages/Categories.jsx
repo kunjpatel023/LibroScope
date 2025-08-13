@@ -41,18 +41,9 @@ export default function Categories() {
   }, [searchTerm, selectedCategory, sortOption]);
 
   return (
-    <div
-      className={`min-h-screen p-8 ${
-        theme === "dark" ? "bg-gray-900 text-white" : "bg-gray-100 text-gray-900"
-      }`}
-    >
-      {/* Outer rounded container */}
-      <div
-        className={`m-4 p-6 rounded-3xl shadow-lg ${
-          theme === "dark" ? "bg-gray-800" : "bg-white"
-        }`}
-      >
-        <h2 className="text-2xl font-bold mb-6">📚 Categories</h2>
+    <div className={`p-8 min-h-screen m-8 rounded-3xl ${theme === "dark" ? "bg-gray-900 text-white" : "bg-gray-100 text-gray-900"}`}>
+      {/* Header */}
+      <h2 className="text-2xl font-bold mb-6">📚 Categories</h2>
 
         {/* Controls */}
         <div
@@ -116,59 +107,40 @@ export default function Categories() {
           ))}
         </div>
 
-        {/* Books Display */}
-        <div
-          className={`p-4 rounded-xl shadow-lg ${
-            theme === "dark" ? "bg-gray-700" : "bg-gray-50"
-          }`}
-        >
-          {view === "grid" ? (
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-              {books.map((book) => (
-                <BookCard
-                  key={book.id}
-                  book={book}
-                  showBookmarkFirst
-                  onReadNow={() => navigate(`/bookreader/${book.id}`)}
-                />
-              ))}
-            </div>
-          ) : (
-            <div className="space-y-4">
-              {books.map((book) => (
-                <div
-                  key={book.id}
-                  className={`flex items-center justify-between p-4 rounded-lg shadow-md ${
-                    theme === "dark" ? "bg-gray-800" : "bg-white"
-                  }`}
-                >
-                  <div className="flex items-center gap-4">
-                    <img
-                      src={book.image}
-                      alt={book.title}
-                      className="w-16 h-20 object-cover rounded"
-                    />
-                    <div>
-                      <h4 className="font-semibold">{book.title}</h4>
-                      <p className="text-sm text-gray-500">{book.category}</p>
-                    </div>
-                  </div>
-                  <div className="flex items-center gap-3">
-                    <button className="text-gray-500 hover:text-yellow-500 transition" title="Bookmark">
-                      <FaBookmark className="w-5 h-5" />
-                    </button>
-                    <button
-                      onClick={() => navigate(`/bookreader/${book.id}`)}
-                      className="bg-blue-500 text-white px-3 py-1 rounded hover:bg-blue-600 transition"
-                    >
-                      Read Now
-                    </button>
+      {/* Books Display */}
+      <div className={`p-4 rounded-xl shadow-lg ${theme === "dark" ? "bg-gray-800" : "bg-white"}`}>
+        {view === "grid" ? (
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+            {books.map((book) => (
+              <BookCard key={book.id} book={book} showBookmarkFirst />
+            ))}
+          </div>
+        ) : (
+          <div className="space-y-4">
+            {books.map((book) => (
+              <div
+                key={book.id}
+                className="flex items-center justify-between bg-white dark:bg-gray-800 p-4 rounded-lg shadow-md"
+              >
+                <div className="flex items-center gap-4">
+                  <img src={book.image} alt={book.title} className="w-16 h-20 object-cover rounded" />
+                  <div>
+                    <h4 className="font-semibold">{book.title}</h4>
+                    <p className="text-sm text-gray-500">{book.category}</p>
                   </div>
                 </div>
-              ))}
-            </div>
-          )}
-        </div>
+                <div className="flex items-center gap-3">
+                  <button className="text-gray-500 hover:text-yellow-500 transition">
+                    <FaBookmark className="w-5 h-5" />
+                  </button>
+                  <button className="bg-blue-500 text-white px-3 py-1 rounded hover:bg-blue-600 transition">
+                    Read Now
+                  </button>
+                </div>
+              </div>
+            ))}
+          </div>
+        )}
       </div>
     </div>
   );
