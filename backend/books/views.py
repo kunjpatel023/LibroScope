@@ -1,6 +1,3 @@
-from django.shortcuts import render
-
-# Create your views here.
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework import generics
@@ -10,7 +7,7 @@ from .serializers import BookSerializer, CategorySerializer
 
 @api_view(['GET'])
 def get_categories(request):
-    categories = Category.objects.all()
+    categories = Category.objects.all().order_by('name')
     serializer = CategorySerializer(categories, many=True)
     return Response(serializer.data)
 
@@ -22,11 +19,13 @@ def get_books(request):
 
     books = Book.objects.all()
 
-    if category != "All":
-        books = books.filter(category__name=category)
+    if category and category != "All":
+        books = books.filter(category__name__iexact=category)
 
     if search:
-        books = books.filter(Q(title__icontains=search) | Q(author__icontains=search))
+        books = books.filter(
+            Q(title__icontains=search) | Q(author__icontains=search)
+        )
 
     if sort == "az":
         books = books.order_by("title")
@@ -37,10 +36,20 @@ def get_books(request):
     elif sort == "oldest":
         books = books.order_by("uploaded_at")
 
-    # serializer = BookSerializer(books, many=True)
     serializer = BookSerializer(books, many=True, context={'request': request})
     return Response(serializer.data)
 
+@api_view(['GET'])
+def get_book_detail(request, pk):
+    try:
+        book = Book.objects.get(pk=pk)
+    except Book.DoesNotExist:
+        return Response({'error': 'Book not found'}, status=404)
+    serializer = BookSerializer(book, context={'request': request})
+    return Response(serializer.data)
+
+# Optional DRF generic list view (not used by frontend but kept)
+from rest_framework import generics
 
 class BookListView(generics.ListAPIView):
     serializer_class = BookSerializer

@@ -47,7 +47,7 @@ export default function BookCard({ book }) {
           </h3>
           <p className="text-xs text-gray-200 truncate">{book.author}</p>
           <Link
-            to={`/bookreader`}
+            to={`/bookreader/${book.id}`}
             className="mt-2 block text-center bg-indigo-600 text-white py-1 rounded hover:bg-indigo-700 text-xs"
           >
             Read
