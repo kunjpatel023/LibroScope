@@ -15,4 +15,5 @@ urlpatterns = [
     path('register/', register_user, name='register'),
     path('login/', login_user, name='login'),
     path('token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
+
 ]

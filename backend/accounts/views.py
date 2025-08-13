@@ -28,6 +28,10 @@
 #         password=make_password(data['password']),
 #     )
 #     return Response({"detail": "User registered successfully"}, status=status.HTTP_201_CREATED)
+
+
+
+
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework import status
@@ -35,6 +39,8 @@ from django.contrib.auth.models import User
 from django.contrib.auth.hashers import make_password
 from rest_framework_simplejwt.tokens import RefreshToken
 from django.contrib.auth import authenticate
+from rest_framework.permissions import IsAuthenticated
+
 
 @api_view(['POST'])
 def register_user(request):
@@ -72,3 +78,4 @@ def login_user(request):
         "refresh": str(refresh),
         "access": str(refresh.access_token),
     }, status=status.HTTP_200_OK)
+
