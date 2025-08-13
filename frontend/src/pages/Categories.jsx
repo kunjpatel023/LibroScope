@@ -188,7 +188,7 @@ export default function Categories() {
   }, [searchTerm, selectedCategory, sortOption]);
 
   return (
-    <div className={`p-8 min-h-screen m-8 rounded-3xl ${theme === "dark" ? "bg-gray-900 text-white" : "bg-gray-100 text-gray-900"}`}>
+    <div className={`p-8 min-h-screen m-8 rounded-3xl ${theme === "dark" ? "bg-gray-900 text-white" : "bg-[#f0efe9] text-gray-900"}`}>
       {/* Header */}
       <h2 className="text-2xl font-bold mb-6">📚 Categories</h2>
 
@@ -247,7 +247,7 @@ export default function Categories() {
       </div>
 
       {/* Books Display */}
-      <div className={`p-4 rounded-xl shadow-lg ${theme === "dark" ? "bg-gray-800" : "bg-white"}`}>
+      <div className={`p-4 rounded-xl  ${theme === "dark" ? "bg-gray-800" : "bg-[#f0efe9]"}`}>
         {view === "grid" ? (
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
             {books.map((book) => (
