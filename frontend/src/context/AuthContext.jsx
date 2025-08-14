@@ -8,11 +8,7 @@
 //   const navigate = useNavigate();
 
 //   useEffect(() => {
-<<<<<<< Updated upstream
 //     const storedToken = localStorage.getItem("token");
-=======
-//     const storedToken = localStorage.getItem("access");
->>>>>>> Stashed changes
 //     if (storedToken) {
 //       setToken(storedToken);
 //     }
@@ -20,21 +16,13 @@
 
 //   const login = (jwtToken) => {
 //     setToken(jwtToken);
-<<<<<<< Updated upstream
 //     localStorage.setItem("token", jwtToken);
-=======
-//     localStorage.setItem("access", jwtToken);
->>>>>>> Stashed changes
 //     navigate("/dashboard");
 //   };
 
 //   const logout = () => {
 //     setToken(null);
-<<<<<<< Updated upstream
 //     localStorage.removeItem("token");
-=======
-//     localStorage.removeItem("access");
->>>>>>> Stashed changes
 //     navigate("/auth");
 //   };
 
@@ -46,11 +34,6 @@
 // }
 
 
-<<<<<<< Updated upstream
-=======
-
-
->>>>>>> Stashed changes
 import { createContext, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 

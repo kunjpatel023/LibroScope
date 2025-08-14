@@ -8,7 +8,6 @@
 // }
 
 
-<<<<<<< Updated upstream
 // import { useContext } from "react";
 // import { Navigate } from "react-router-dom";
 // import { AuthContext } from "../context/AuthContext";
@@ -22,8 +21,6 @@
 //   return access ? children : <Navigate to="/auth" replace />;
 // }
 
-=======
->>>>>>> Stashed changes
 
 import { useContext } from "react";
 import { Navigate } from "react-router-dom";
