@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 
 export default function ContactPage() {
   return (
-    <div className="min-h-screen bg-[#f6f2ea] px-6 py-10">
+    <div className="min-h-screen bg-[#f6f2ea] px-6 py-10 m-8 rounded-3xl">
       {/* Back Link */}
       <div className="flex items-center gap-2 mb-6">
         <ArrowLeft size={18} />

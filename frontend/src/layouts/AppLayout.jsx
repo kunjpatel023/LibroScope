@@ -1,25 +1,47 @@
+// import { Outlet, useLocation } from "react-router-dom";
+// import Sidebar from "../components/Sidebar";
+
+// export default function AppLayout() {
+//   const location = useLocation();
+//   const isDashboard = location.pathname === "/dashboard";
+
+//   return (
+//     <div className="flex min-h-screen">
+//       {/* Sidebar - Expanded for Dashboard, Collapsed for other pages */}
+//       <Sidebar defaultCollapsed={!isDashboard} />
+
+//       {/* Main content area - Scroll only here */}
+//       <div className="flex-1 overflow-y-auto p-4">
+//         <Outlet />
+//       </div>
+//     </div>
+//   );
+// }
+
+
 import { Outlet, useLocation } from "react-router-dom";
 import Sidebar from "../components/Sidebar";
-import TopbarOther from "../components/TopbarOther";
+import { useState, useEffect } from "react";
 
 export default function AppLayout() {
   const location = useLocation();
-  const username = "John Doe";
+  const [collapsed, setCollapsed] = useState(false);
 
-  const isDashboard = location.pathname === "/dashboard";
+  useEffect(() => {
+    if (location.pathname === "/dashboard") {
+      setCollapsed(false); // Expand for dashboard
+    } else {
+      setCollapsed(true); // Collapse for all other pages
+    }
+  }, [location.pathname]);
 
   return (
     <div className="flex min-h-screen">
-      {isDashboard ? (
+      <Sidebar collapsed={collapsed} setCollapsed={setCollapsed} />
+      {/* Main content area - Scroll only here */}
+      <div className="flex-1 overflow-y-auto p-4">
         <Outlet />
-      ) : (
-        <div className="flex flex-col w-full">
-          <TopbarOther username={username} />
-          <div className="p-4">
-            <Outlet />
-          </div>
-        </div>
-      )}
+      </div>
     </div>
   );
 }

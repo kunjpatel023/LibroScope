@@ -60,7 +60,7 @@ export default function PricingPage() {
   ];
 
   return (
-    <div className="bg-[#f5f1ea] min-h-screen py-16 px-6">
+    <div className="bg-[#f5f1ea] min-h-screen py-16 px-6 m-8 rounded-3xl">
       <div className="text-center mb-12">
         <h1 className="text-3xl font-bold mb-4">Choose Your Reading Journey</h1>
         <p className="text-gray-600 max-w-2xl mx-auto">

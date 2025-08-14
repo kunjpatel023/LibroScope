@@ -136,13 +136,13 @@ const handleGenerateSummary = async () => {
       : "bg-gray-200 text-gray-500";
 
   return (
-    <div className="min-h-screen bg-[#f8f6f1] flex flex-col items-center p-6">
+    <div className="min-h-screen bg-[#f8f6f1] flex flex-col items-center p-6 m-10 rounded-3xl">
       {/* Back link */}
       <div
         className="w-full max-w-4xl mb-4 flex items-center gap-2 text-gray-600 cursor-pointer"
         onClick={() => nav("/dashboard")}
       >
-        <ArrowLeft size={18} /> Back to Dashboard
+        {/* <ArrowLeft size={18} /> Back to Dashboard */}
       </div>
 
       {/* Title */}

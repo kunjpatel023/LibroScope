@@ -58,7 +58,7 @@ export default function About() {
   const [openFAQ, setOpenFAQ] = useState(null);
 
   return (
-    <div className="bg-[#f5f1e6] min-h-screen text-gray-900">
+    <div className="bg-[#f5f1e6] min-h-screen text-gray-900 m-8 rounded-3xl">
       {/* Meet Our Team */}
       <section className="max-w-6xl mx-auto py-16 px-6">
         <h2 className="text-3xl font-bold text-center mb-12">Meet Our Team</h2>
@@ -115,7 +115,7 @@ export default function About() {
       </section>
 
       {/* Footer */}
-      <footer className="bg-white py-6 mt-12 border-t">
+      <footer className="py-6 mt-12 border-t">
         <div className="max-w-6xl mx-auto flex flex-col md:flex-row justify-between items-center text-sm text-gray-500 px-6">
           <p>© {new Date().getFullYear()} SmartShelf. All rights reserved.</p>
           <div className="flex gap-4 mt-4 md:mt-0">
@@ -124,6 +124,7 @@ export default function About() {
           </div>
         </div>
       </footer>
+      
     </div>
   );
 }
