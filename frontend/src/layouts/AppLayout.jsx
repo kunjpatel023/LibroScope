@@ -1,24 +1,3 @@
-// import { Outlet, useLocation } from "react-router-dom";
-// import Sidebar from "../components/Sidebar";
-
-// export default function AppLayout() {
-//   const location = useLocation();
-//   const isDashboard = location.pathname === "/dashboard";
-
-//   return (
-//     <div className="flex min-h-screen">
-//       {/* Sidebar - Expanded for Dashboard, Collapsed for other pages */}
-//       <Sidebar defaultCollapsed={!isDashboard} />
-
-//       {/* Main content area - Scroll only here */}
-//       <div className="flex-1 overflow-y-auto p-4">
-//         <Outlet />
-//       </div>
-//     </div>
-//   );
-// }
-
-
 import { Outlet, useLocation } from "react-router-dom";
 import Sidebar from "../components/Sidebar";
 import { useState, useEffect } from "react";
