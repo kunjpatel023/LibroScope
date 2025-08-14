@@ -4,30 +4,32 @@ import { useNavigate } from "react-router-dom";
 export const AuthContext = createContext();
 
 export function AuthProvider({ children }) {
-  const [token, setToken] = useState(null);
+  const [access, setAccess] = useState(null);
+  const [loading, setLoading] = useState(true); // <- prevent early redirect
   const navigate = useNavigate();
 
   useEffect(() => {
-    const storedToken = localStorage.getItem("token");
-    if (storedToken) {
-      setToken(storedToken);
+    const storedAccess = localStorage.getItem("access");
+    if (storedAccess) {
+      setAccess(storedAccess);
     }
+    setLoading(false); // finished checking
   }, []);
 
-  const login = (jwtToken) => {
-    setToken(jwtToken);
-    localStorage.setItem("token", jwtToken);
+  const login = (jwtAccess) => {
+    setAccess(jwtAccess);
+    localStorage.setItem("access", jwtAccess);
     navigate("/dashboard");
   };
 
   const logout = () => {
-    setToken(null);
-    localStorage.removeItem("token");
+    setAccess(null);
+    localStorage.removeItem("access");
     navigate("/auth");
   };
 
   return (
-    <AuthContext.Provider value={{ token, login, logout }}>
+    <AuthContext.Provider value={{ access, login, logout, loading }}>
       {children}
     </AuthContext.Provider>
   );
