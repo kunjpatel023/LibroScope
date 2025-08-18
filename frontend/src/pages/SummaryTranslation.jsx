@@ -251,12 +251,13 @@
 
 
 
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useState,useEffect } from "react";
+import { useNavigate, useLocation } from "react-router-dom";
 import { Upload, FileText, Globe } from "lucide-react";
 
 export default function SummaryTranslation() {
   const nav = useNavigate();
+  const location = useLocation();   // ➕ added
 
   const [file, setFile] = useState(null);
   const [summary, setSummary] = useState("");
@@ -267,6 +268,67 @@ export default function SummaryTranslation() {
   const [currentStep, setCurrentStep] = useState(1);
 
   const BASE_URL = "http://localhost:8000/api/summary";
+
+  // const handleFileChange = (e) => {
+  //   const selected = e.target.files?.[0];
+  //   if (selected) {
+  //     if (!file || selected.name !== file.name || selected.size !== file.size) {
+  //       setFile(selected);
+  //       setSummary("");
+  //       setSummaryId(null);
+  //       setTranslatedText("");
+  //     } else {
+  //       setFile(selected);
+  //     }
+  //   }
+  // };
+
+  // const handleGenerateSummary = async () => {
+  //   if (!file) {
+  //     alert("Please upload a document first");
+  //     return;
+  //   }
+  //   setLoading(true);
+  //   try {
+  //     const formData = new FormData();
+  //     formData.append("pdf", file);
+  //     const headers = {};
+  //     const token = localStorage.getItem("access");
+  //     if (token) headers["Authorization"] = `Bearer ${token}`;
+  //     const res = await fetch(`${BASE_URL}/summarize/`, {
+  //       method: "POST",
+  //       headers,
+  //       body: formData,
+  //     });
+  //     if (!res.ok) throw new Error(await res.text() || "Failed to summarize");
+  //     const data = await res.json();
+  //     setSummary(data.summary || "");
+  //     setSummaryId(data.summary_id || null);
+  //     setTranslatedText("");
+  //     setCurrentStep(2);
+  //   } catch (err) {
+  //     alert("Error generating summary: " + err.message);
+  //   } finally {
+  //     setLoading(false);
+  //   }
+  // };
+
+
+  // 🆕 If user comes from BookReader, auto attach book PDF
+  useEffect(() => {
+    const passedBook = location.state?.book;
+    if (passedBook?.pdf) {
+      fetch(passedBook.pdf)
+        .then((res) => res.blob())
+        .then((blob) => {
+          const fileObj = new File([blob], `${passedBook.title}.pdf`, {
+            type: "application/pdf",
+          });
+          setFile(fileObj);
+        })
+        .catch((err) => console.error("Failed to fetch pdf", err));
+    }
+  }, [location.state]);
 
   const handleFileChange = (e) => {
     const selected = e.target.files?.[0];
@@ -312,6 +374,10 @@ export default function SummaryTranslation() {
     }
   };
 
+
+
+
+
   const moveToTranslateStep = () => {
     if (!summary) {
       alert("Generate summary before translating.");
@@ -353,8 +419,8 @@ export default function SummaryTranslation() {
     step === currentStep
       ? "bg-gradient-to-r from-indigo-500 to-purple-500 text-white shadow"
       : step < currentStep
-      ? "bg-green-500 text-white shadow"
-      : "bg-gray-200 text-gray-500";
+        ? "bg-green-500 text-white shadow"
+        : "bg-gray-200 text-gray-500";
 
   return (
     <div className="min-h-screen bg-[#f8f6f1] flex flex-col items-center px-4 sm:px-6 py-8 sm:py-10 m-4 sm:m-10 rounded-3xl">

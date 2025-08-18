@@ -309,14 +309,14 @@ export default function BookReader() {
       {},
       { headers: { Authorization: `Bearer ${token}` } }
     )
-    .then(() => {
-      alert("Book marked as completed!");
-      nav("/profile");
-    })
-    .catch((err) => {
-      console.error("Error marking book as completed", err);
-      alert("Something went wrong.");
-    });
+      .then(() => {
+        alert("Book marked as completed!");
+        nav("/profile");
+      })
+      .catch((err) => {
+        console.error("Error marking book as completed", err);
+        alert("Something went wrong.");
+      });
   };
 
   if (loading) return <div className="p-6 text-center">Loading...</div>;
@@ -324,7 +324,7 @@ export default function BookReader() {
 
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-gray-100">
-      
+
       {/* Header */}
       <div className="flex justify-between items-center p-4 shadow bg-white dark:bg-gray-800 flex-wrap gap-3">
         <h1 className="text-xl sm:text-2xl font-bold text-indigo-600">SmartShelf</h1>
@@ -337,7 +337,7 @@ export default function BookReader() {
       </div>
 
       <div className="max-w-6xl mx-auto p-4 sm:p-6">
-        
+
         {/* Book Info */}
         <div className="flex flex-col sm:flex-row gap-4 sm:gap-6 bg-white dark:bg-gray-800 rounded-2xl shadow-lg p-4 sm:p-6 items-center sm:items-start">
           <img
@@ -350,6 +350,17 @@ export default function BookReader() {
             <p className="text-gray-500 dark:text-gray-400 text-sm sm:text-base">
               by {book.author}
             </p>
+            {/* ➕ New button for summary */}
+            {book.pdf && (
+              <button
+                onClick={() =>
+                  nav("/summarytranslation", { state: { book } })
+                }
+                className="mt-3 px-4 py-2 bg-indigo-500 text-white rounded hover:bg-indigo-600 text-sm"
+              >
+                Generate Summary
+              </button>
+            )}
           </div>
         </div>
 
