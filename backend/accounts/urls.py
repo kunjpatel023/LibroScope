@@ -8,7 +8,7 @@
 #     path("token/refresh/", TokenRefreshView.as_view(), name="token_refresh"),
 # ]
 from django.urls import path
-from .views import register_user, login_user,get_profile,update_profile,mark_book_as_completed,toggle_bookmark
+from .views import register_user, login_user,get_profile,update_profile,mark_book_as_completed,toggle_bookmark,reset_password
 from rest_framework_simplejwt.views import TokenRefreshView
 
 urlpatterns = [
@@ -20,5 +20,5 @@ urlpatterns = [
     # path("bookmark/<int:book_id>/", add_bookmark, name="add_bookmark"),
     path("complete/<int:book_id>/", mark_book_as_completed, name="mark_completed"),
     path("bookmark/<int:book_id>/", toggle_bookmark, name="toggle_bookmark"),
-
+    path("reset-password/", reset_password, name="reset_password"),
 ]

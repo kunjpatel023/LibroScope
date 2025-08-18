@@ -42,18 +42,29 @@ from django.contrib.auth import authenticate
 from rest_framework.permissions import IsAuthenticated
 
 
+# @api_view(['POST'])
+# def register_user(request):
+#     data = request.data
+#     if User.objects.filter(username=data['username']).exists():
+#         return Response({"detail": "User already exists"}, status=status.HTTP_400_BAD_REQUEST)
+    
+#     user = User.objects.create(
+#         username=data['username'],
+#         email=data['email'],
+#         password=make_password(data['password']),
+#     )
+#     return Response({"detail": "User registered successfully"}, status=status.HTTP_201_CREATED)
+
+
+from .serializers import RegisterSerializer
+
 @api_view(['POST'])
 def register_user(request):
-    data = request.data
-    if User.objects.filter(username=data['username']).exists():
-        return Response({"detail": "User already exists"}, status=status.HTTP_400_BAD_REQUEST)
-    
-    user = User.objects.create(
-        username=data['username'],
-        email=data['email'],
-        password=make_password(data['password']),
-    )
-    return Response({"detail": "User registered successfully"}, status=status.HTTP_201_CREATED)
+    serializer = RegisterSerializer(data=request.data)
+    if serializer.is_valid():
+        serializer.save()
+        return Response({"detail": "User registered successfully"}, status=status.HTTP_201_CREATED)
+    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
 @api_view(['POST'])
@@ -151,3 +162,22 @@ def toggle_bookmark(request, book_id):
     return Response({"message": "Bookmark added"}, status=201)
 
 
+
+
+
+
+@api_view(['POST'])
+def reset_password(request):
+    email = request.data.get("email")
+    new_password = request.data.get("new_password")
+
+    if not email or not new_password:
+        return Response({"error": "Email and new password required"}, status=400)
+
+    try:
+        user = User.objects.get(email=email)
+        user.set_password(new_password)
+        user.save()
+        return Response({"message": "Password reset successfully"}, status=200)
+    except User.DoesNotExist:
+        return Response({"error": "User not found"}, status=404)

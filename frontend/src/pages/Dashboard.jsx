@@ -389,7 +389,7 @@ export default function Dashboard() {
         params: { search: searchQuery, sort: "newest" },
       })
       .then((res) => {
-        const updated = res.data.map((book) => ({
+        const updated = res.data.slice(0,4).map((book) => ({
           ...book,
           is_bookmarked: bookmarkedIds.includes(book.id),
         }));
@@ -398,11 +398,53 @@ export default function Dashboard() {
       .catch((err) => console.error(err));
   }, [searchQuery, bookmarkedIds]);
 
+  // // Fetch recommended books
+  // useEffect(() => {
+  //   axios
+  //     .get("http://127.0.0.1:8000/api/book/books/", {
+  //       params: { sort: "recommended" },
+  //     })
+  //     .then((res) => {
+  //       const updated = res.data.map((book) => ({
+  //         ...book,
+  //         is_bookmarked: bookmarkedIds.includes(book.id),
+  //       }));
+  //       setRecommendedBooks(updated);
+  //     })
+  //     .catch((err) => console.error(err));
+  // }, [bookmarkedIds]);
+
+
+
+
+
+  // -----------------------------------for method 1 and 2 -----------------------------------------------------------
   // Fetch recommended books
+  // useEffect(() => {
+  //   if (token) {
+  //     axios
+  //       .get("http://127.0.0.1:8000/api/book/recommended/", {
+  //         headers: { Authorization: `Bearer ${token}` },
+  //       })
+  //       .then((res) => {
+  //         const updated = res.data.map((book) => ({
+  //           ...book,
+  //           is_bookmarked: bookmarkedIds.includes(book.id),
+  //         }));
+  //         setRecommendedBooks(updated);
+  //       })
+  //       .catch((err) => console.error(err));
+  //   }
+  // }, [bookmarkedIds, token]);
+
+
+
+  // -------------------------------- for method -3 knn --------------------------------------------------
+  // Fetch recommended books (KNN method)
   useEffect(() => {
     axios
-      .get("http://127.0.0.1:8000/api/book/books/", {
-        params: { sort: "recommended" },
+      .get("http://127.0.0.1:8000/api/book/recommend/knn/", {
+        headers: { Authorization: `Bearer ${token}` },
       })
       .then((res) => {
         const updated = res.data.map((book) => ({
@@ -413,6 +455,12 @@ export default function Dashboard() {
       })
       .catch((err) => console.error(err));
   }, [bookmarkedIds]);
+
+
+
+
+
+
 
   // Toggle bookmark
   const handleBookmark = async (bookId) => {
@@ -482,11 +530,10 @@ export default function Dashboard() {
               <div className="flex gap-2 mt-3 sm:mt-0">
                 <button
                   onClick={() => handleBookmark(book.id)}
-                  className={`transition ${
-                    bookmarkedIds.includes(book.id)
-                      ? "text-yellow-500"
-                      : "text-gray-500 hover:text-yellow-500"
-                  }`}
+                  className={`transition ${bookmarkedIds.includes(book.id)
+                    ? "text-yellow-500"
+                    : "text-gray-500 hover:text-yellow-500"
+                    }`}
                 >
                   <FaBookmark className="w-5 h-5" />
                 </button>
@@ -518,17 +565,15 @@ export default function Dashboard() {
         <div className="flex gap-2 justify-center sm:justify-end">
           <button
             onClick={() => setView("grid")}
-            className={`p-2 rounded ${
-              view === "grid" ? "bg-blue-500 text-white" : "bg-gray-200"
-            }`}
+            className={`p-2 rounded ${view === "grid" ? "bg-blue-500 text-white" : "bg-gray-200"
+              }`}
           >
             <FaThLarge />
           </button>
           <button
             onClick={() => setView("list")}
-            className={`p-2 rounded ${
-              view === "list" ? "bg-blue-500 text-white" : "bg-gray-200"
-            }`}
+            className={`p-2 rounded ${view === "list" ? "bg-blue-500 text-white" : "bg-gray-200"
+              }`}
           >
             <FaList />
           </button>
