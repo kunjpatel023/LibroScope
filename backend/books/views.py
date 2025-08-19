@@ -224,7 +224,7 @@ def knn_recommendations(request):
     Based on user's bookmarks + completed books.
     """
     user = request.user
-    TOP_N = 5
+    TOP_N = 4
 
     # --- 1) Get user history + bookmarks ---
     bookmarked_ids = list(BookmarkedBook.objects.filter(user=user).values_list("book__id", flat=True))

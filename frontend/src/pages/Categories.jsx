@@ -213,14 +213,13 @@
 //   );
 // }
 
-
-
 import React, { useState, useEffect } from "react";
 import { FaThLarge, FaList, FaBookmark } from "react-icons/fa";
 import { useTheme } from "../context/ThemeContext";
 import BookCard from "../components/BookCard";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { motion } from "framer-motion";
 
 export default function Categories() {
   const { theme } = useTheme();
@@ -304,80 +303,105 @@ export default function Categories() {
 
   return (
     <div
-      className={`p-4 sm:p-8 min-h-screen m-2 sm:m-8 rounded-3xl ${
-        theme === "dark" ? "bg-gray-900 text-white" : "bg-gray-100 text-gray-900"
+      className={`min-h-screen m-2 sm:m-8 rounded-3xl ${
+        theme === "dark"
+          ? "bg-gray-900 text-white"
+          : "bg-[#f0efe9] text-gray-900"
       }`}
     >
-      <h2 className="text-xl sm:text-2xl font-bold mb-6">📚 Categories</h2>
+      {/* Title Section */}
+      <section className="text-center py-2 px-6">
+        <motion.h1
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          className="text-4xl md:text-5xl font-bold"
+        >
+          Book{" "}
+          <span className="text-blue-600 dark:text-blue-400">
+            Categories
+          </span>
+        </motion.h1>
+      </section>
 
-      {/* Controls */}
-      <div
-        className={`flex flex-col sm:flex-row sm:items-center gap-3 p-4 rounded-xl shadow-md mb-6 ${
-          theme === "dark" ? "bg-gray-700" : "bg-gray-50"
+      {/* Controls + Category Buttons Together */}
+      <motion.div
+        initial={{ opacity: 0, y: 30 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6, delay: 0.2 }}
+        className={`flex flex-col gap-4 p-3 m-4 mx-7 rounded-[50px] shadow-[0_20px_50px_rgba(0,0,0,0.25)] mb-6 ${
+          theme === "dark" ? "bg-gray-700" : "bg-[#f7f9fa]"
         }`}
       >
-        <input
-          type="text"
-          placeholder="Search books..."
-          value={searchTerm}
-          onChange={(e) => setSearchTerm(e.target.value)}
-          className="flex-1 px-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-400 w-full sm:w-auto"
-        />
+        {/* Search + Sort + View */}
+        <div className="flex rounded-[50px] flex-col sm:flex-row sm:items-center gap-3">
+          <input
+            type="text"
+            placeholder="Search books..."
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+            className="flex-1 px-4 py-2  rounded-[50px] border border-black focus:outline-none focus:ring-2 focus:ring-gray-400 w-full sm:w-auto"
+          />
 
-        <select
-          value={sortOption}
-          onChange={(e) => setSortOption(e.target.value)}
-          className="px-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-400 w-full sm:w-auto"
-        >
-          <option value="az">Sort: A-Z</option>
-          <option value="za">Sort: Z-A</option>
-          <option value="newest">Newest</option>
-          <option value="oldest">Oldest</option>
-        </select>
+          <select
+            value={sortOption}
+            onChange={(e) => setSortOption(e.target.value)}
+            className="px-3 py-2 rounded-[50px] border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-400 w-full sm:w-auto"
+          >
+            <option value="az">Sort: A-Z</option>
+            <option value="za">Sort: Z-A</option>
+            <option value="newest">Newest</option>
+            <option value="oldest">Oldest</option>
+          </select>
 
-        <div className="flex gap-2 justify-center sm:justify-start">
-          <button
-            onClick={() => setView("grid")}
-            className={`p-2 rounded-lg ${
-              view === "grid" ? "bg-blue-500 text-white" : "bg-gray-200"
-            }`}
-          >
-            <FaThLarge />
-          </button>
-          <button
-            onClick={() => setView("list")}
-            className={`p-2 rounded-lg ${
-              view === "list" ? "bg-blue-500 text-white" : "bg-gray-200"
-            }`}
-          >
-            <FaList />
-          </button>
+          <div className="flex gap-2 justify-center sm:justify-start">
+            <button
+              onClick={() => setView("grid")}
+              className={`p-2 rounded-4xl ${
+                view === "grid"
+                  ? "bg-black text-white"
+                  : "bg-white"
+              }`}
+            >
+              <FaThLarge />
+            </button>
+            <button
+              onClick={() => setView("list")}
+              className={`p-2 rounded-4xl ${
+                view === "list"
+                  ? "bg-black text-white"
+                  : "bg-white"
+              }`}
+            >
+              <FaList />
+            </button>
+          </div>
         </div>
-      </div>
-
-      {/* Category Buttons */}
-      <div className="flex gap-3 mb-8 overflow-x-auto scrollbar-hide px-2">
-        {categories.map((cat, idx) => (
-          <button
-            key={idx}
-            onClick={() => setSelectedCategory(cat.name)}
-            className={`flex-shrink-0 px-4 py-2 rounded-full text-sm font-medium shadow-sm transition ${
-              selectedCategory === cat.name
-                ? "bg-blue-500 text-white ring-2 ring-blue-300"
-                : "bg-gray-200 text-gray-700 hover:bg-gray-300"
-            }`}
-          >
-            {cat.name}
-          </button>
-        ))}
-        {/* Extra padding so last button is visible */}
-        <div className="w-4 flex-shrink-0"></div>
-      </div>
+        </motion.div>
+        
+        {/* Category Buttons (Inside same box) */}
+        <div className="flex gap-3 overflow-x-auto scrollbar-hide px-7 pb-4">
+          {categories.map((cat, idx) => (
+            <button
+              key={idx}
+              onClick={() => setSelectedCategory(cat.name)}
+              className={`flex-shrink-0 px-5 py-2 rounded-[50px] text-md font-medium shadow-sm transition ${
+                selectedCategory === cat.name
+                  ? "bg-[#d9d5bd] text-black font-bold"
+                  : "bg-white text-gray-700 hover:bg-gray-300"
+              }`}
+            >
+              {cat.name}
+            </button>
+          ))}
+          <div className="w-4 flex-shrink-0"></div>
+        </div>
+      
 
       {/* Books Display */}
       <div
-        className={`p-4 rounded-xl shadow-lg ${
-          theme === "dark" ? "bg-gray-800" : "bg-white"
+        className={`p-4 rounded-xl ${
+          theme === "dark" ? "bg-gray-800" : "bg-[#f0efe9]"
         }`}
       >
         {view === "grid" ? (
@@ -391,13 +415,15 @@ export default function Categories() {
             {books.map((book) => (
               <div
                 key={book.id}
-                className="flex flex-col sm:flex-row sm:items-center justify-between bg-white dark:bg-gray-800 p-4 rounded-lg shadow-md gap-3 w-full"
+                className="flex flex-col sm:flex-row sm:items-center justify-between
+                bg-[#f7f9fa] rounded-4xl shadow-md hover:shadow-lg transition-all
+                overflow-hidden h-40 w-full p-4"
               >
                 <div className="flex items-center gap-4">
                   <img
                     src={book.image}
                     alt={book.title}
-                    className="w-20 h-24 object-cover rounded"
+                    className="w-20 h-30 object-cover rounded-xl"
                   />
                   <div>
                     <h4 className="font-semibold">{book.title}</h4>

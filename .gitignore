@@ -5,3 +5,4 @@ __pycache__/
 
 # Media uploads
 backend/media/
+.env

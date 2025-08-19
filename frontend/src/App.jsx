@@ -1,5 +1,58 @@
+// import React from "react";
+// import { Routes, Route } from "react-router-dom";
+
+// // Layout
+// import AppLayout from "./layouts/AppLayout";
+
+// // Pages
+// import LandingPage from "./pages/LandingPage";
+// import Dashboard from "./pages/Dashboard";
+// import Categories from "./pages/Categories";
+// import SummaryTranslation from "./pages/SummaryTranslation";
+// import Profile from "./pages/Profile";
+// import About from "./pages/About";
+// import Contact from "./pages/Contact";
+// import Subscription from "./pages/Subscription";
+// import BookReader from "./pages/BookReader";
+// import Auth from "./pages/AuthPage";
+// import PrivateRoute from "./utils/PrivateRoute";
+
+// export default function App() {
+//   return (
+//     <Routes>
+//       {/* Public routes */}
+//       <Route path="/" element={<LandingPage />} />
+//       <Route path="/auth" element={<Auth />} />
+
+//       {/* Pages that use the Sidebar layout */}
+//       <Route element={<AppLayout />}>
+//         <Route
+//           path="/dashboard"
+//           element={
+//             <PrivateRoute>
+//               <Dashboard />
+//             </PrivateRoute>
+//           }
+//         />
+//         <Route path="/categories" element={ <PrivateRoute><Categories /></PrivateRoute>} />
+//         <Route path="/summarytranslation" element={<PrivateRoute><SummaryTranslation /></PrivateRoute>} />
+//         <Route path="/profile" element={<PrivateRoute><Profile /></PrivateRoute>} />
+//         <Route path="/about" element={<PrivateRoute><About /></PrivateRoute>} />
+//         <Route path="/contact" element={<PrivateRoute><Contact /></PrivateRoute>} />
+//         <Route path="/subscription" element={<PrivateRoute><Subscription /></PrivateRoute>} />
+//       </Route>
+
+//       {/* Reading page WITHOUT Dashboard layout */}
+//       <Route path="/bookreader/:id" element={<PrivateRoute><BookReader/></PrivateRoute>} />
+//     </Routes>
+//   );
+// }
+
+
+
 import React from "react";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, useLocation } from "react-router-dom";
+import { AnimatePresence, motion } from "framer-motion";
 
 // Layout
 import AppLayout from "./layouts/AppLayout";
@@ -17,33 +70,133 @@ import BookReader from "./pages/BookReader";
 import Auth from "./pages/AuthPage";
 import PrivateRoute from "./utils/PrivateRoute";
 
-export default function App() {
+// ✅ Reusable wrapper for page animations
+function PageWrapper({ children }) {
   return (
-    <Routes>
-      {/* Public routes */}
-      <Route path="/" element={<LandingPage />} />
-      <Route path="/auth" element={<Auth />} />
+    <motion.div
+      initial={{ opacity: 0, y: 40 }}     // start hidden + from bottom
+      animate={{ opacity: 1, y: 0 }}      // fade in + center
+      exit={{ opacity: 0, y: -40 }}       // fade out + to top
+      transition={{ duration: 0.4, ease: "easeInOut" }}
+      className="h-full w-full"
+    >
+      {children}
+    </motion.div>
+  );
+}
 
-      {/* Pages that use the Sidebar layout */}
-      <Route element={<AppLayout />}>
+export default function App() {
+  const location = useLocation();
+
+  return (
+    <AnimatePresence mode="wait">
+      <Routes location={location} key={location.pathname}>
+        {/* Public routes */}
         <Route
-          path="/dashboard"
+          path="/"
+          element={
+            <PageWrapper>
+              <LandingPage />
+            </PageWrapper>
+          }
+        />
+        <Route
+          path="/auth"
+          element={
+            <PageWrapper>
+              <Auth />
+            </PageWrapper>
+          }
+        />
+
+        {/* Pages that use the Sidebar layout */}
+        <Route element={<AppLayout />}>
+          <Route
+            path="/dashboard"
+            element={
+              <PrivateRoute>
+                <PageWrapper>
+                  <Dashboard />
+                </PageWrapper>
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/categories"
+            element={
+              <PrivateRoute>
+                <PageWrapper>
+                  <Categories />
+                </PageWrapper>
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/summarytranslation"
+            element={
+              <PrivateRoute>
+                <PageWrapper>
+                  <SummaryTranslation />
+                </PageWrapper>
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/profile"
+            element={
+              <PrivateRoute>
+                <PageWrapper>
+                  <Profile />
+                </PageWrapper>
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/about"
+            element={
+              <PrivateRoute>
+                <PageWrapper>
+                  <About />
+                </PageWrapper>
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/contact"
+            element={
+              <PrivateRoute>
+                <PageWrapper>
+                  <Contact />
+                </PageWrapper>
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/subscription"
+            element={
+              <PrivateRoute>
+                <PageWrapper>
+                  <Subscription />
+                </PageWrapper>
+              </PrivateRoute>
+            }
+          />
+        </Route>
+
+        {/* Reading page WITHOUT Dashboard layout */}
+        <Route
+          path="/bookreader/:id"
           element={
             <PrivateRoute>
-              <Dashboard />
+              <PageWrapper>
+                <BookReader />
+              </PageWrapper>
             </PrivateRoute>
           }
         />
-        <Route path="/categories" element={ <PrivateRoute><Categories /></PrivateRoute>} />
-        <Route path="/summarytranslation" element={<PrivateRoute><SummaryTranslation /></PrivateRoute>} />
-        <Route path="/profile" element={<PrivateRoute><Profile /></PrivateRoute>} />
-        <Route path="/about" element={<PrivateRoute><About /></PrivateRoute>} />
-        <Route path="/contact" element={<PrivateRoute><Contact /></PrivateRoute>} />
-        <Route path="/subscription" element={<PrivateRoute><Subscription /></PrivateRoute>} />
-      </Route>
-
-      {/* Reading page WITHOUT Dashboard layout */}
-      <Route path="/bookreader/:id" element={<PrivateRoute><BookReader/></PrivateRoute>} />
-    </Routes>
+      </Routes>
+    </AnimatePresence>
   );
 }
+
+

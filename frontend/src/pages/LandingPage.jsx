@@ -91,18 +91,18 @@ export default function LandingPage({ toggleDark, dark }) {
       <section
         id="home"
         style={sectionStyle}
-        className="relative text-center flex items-center justify-center min-h-screen pt-28 px-6 bg-gradient-to-br from-purple-100 via-blue-50 to-pink-100 overflow-hidden"
+        className="relative text-center flex items-center justify-center min-h-screen pt-28 px-6 bg-gradient-to-r from-[#F5F5F5] to-[#E8E2D6] overflow-hidden"
       >
         {/* Glow blobs */}
-        <div className="absolute w-80 h-80 bg-purple-300/40 rounded-full blur-3xl top-20 left-10 animate-pulse"></div>
-        <div className="absolute w-80 h-80 bg-blue-300/40 rounded-full blur-3xl bottom-20 right-10 animate-pulse"></div>
+        <div className="absolute w-80 h-80 bg-stone-600/40 rounded-full blur-3xl top-20 left-10 animate-pulse"></div>
+        <div className="absolute w-80 h-80 bg-stone-600/40 rounded-full blur-3xl bottom-20 right-10 animate-pulse"></div>
 
         {!isMobile && (
           <>
             <motion.img
               src="/images/love1.jpeg"
               alt="Floating book"
-              className="absolute w-28 h-48 top-32 left-12 rounded-lg shadow-2xl border border-purple-200 pointer-events-none"
+              className="absolute w-32 h-50 top-40 left-24 rounded-lg shadow-2xl  pointer-events-none"
               animate={{ y: [0, -30, 0], rotate: [-8, 8, -8] }}
               transition={{
                 duration: 4,
@@ -112,7 +112,7 @@ export default function LandingPage({ toggleDark, dark }) {
             />
 
             <motion.div
-              className="absolute w-28 h-48 bottom-28 right-16 rounded-lg shadow-2xl border border-blue-200 bg-blue-100/20 pointer-events-none"
+              className="absolute w-32 h-50 bottom-28 right-24 rounded-lg shadow-2xl  bg-blue-100/20 pointer-events-none"
               animate={{ y: [0, -20, 0], rotate: [8, -8, 8] }}
               transition={{
                 duration: 3,
@@ -202,9 +202,9 @@ export default function LandingPage({ toggleDark, dark }) {
       <section
         id="features"
         style={sectionStyle}
-        className="py-16 px-6 md:px-16 bg-gradient-to-b from-white to-purple-50"
+        className="py-16 px-6 md:px-16 bg-gradient-to-r from-neutral-100 to-sand-500"
       >
-        <h2 className="text-3xl font-bold text-center text-purple-600">
+        <h2 className="text-3xl font-bold text-center text-black">
           Powerful Features
         </h2>
         <p className="text-center text-gray-600 mt-2">
@@ -263,7 +263,7 @@ export default function LandingPage({ toggleDark, dark }) {
         <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-10 items-center">
           {/* Left: Text */}
           <div>
-            <h2 className="text-3xl font-bold mb-6 text-purple-600">
+            <h2 className="text-3xl font-bold mb-6 text-black">
               About SmartShelf
             </h2>
             <p className="text-gray-700 mb-4 leading-relaxed">
@@ -301,11 +301,11 @@ export default function LandingPage({ toggleDark, dark }) {
 
       {/* FOOTER */}
       {/* <Footer /> */}
-      <footer className="bg-gradient-to-br from-purple-100 via-blue-50 to-pink-100 text-gray-700 border-t border-gray-200 mt-16">
+      <footer className="bg-gradient-to-tr from-[#F5F5F5] to-[#E8E2D6] text-gray-700 border-t border-gray-200 mt-16">
         <div className="max-w-7xl mx-auto px-6 py-12 grid grid-cols-1 md:grid-cols-4 gap-8">
           {/* Brand Section */}
           <div>
-            <h2 className="text-2xl font-bold bg-gradient-to-r from-purple-500 to-blue-500 bg-clip-text text-transparent">
+            <h2 className="text-2xl font-bold bg-black bg-clip-text text-transparent">
               SmartShelf
             </h2>
             <p className="mt-3 text-sm text-gray-600">

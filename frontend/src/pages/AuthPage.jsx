@@ -363,11 +363,11 @@ export default function AuthPage() {
   };
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-gradient-to-br from-purple-100 to-purple-200 overflow-hidden relative px-4">
+    <div className="flex items-center justify-center min-h-screen bg-gradient-to-r from-[#F5F5F5] to-[#E8E2D6] overflow-hidden relative px-4">
       {/* Back to Home */}
       <button
         onClick={() => navigate("/")}
-        className="absolute top-4 left-4 text-sm text-black hover:underline z-50"
+        className="absolute top-4 left-4 text-lg text-black hover:underline z-50"
       >
         ← Back to Home
       </button>
@@ -376,10 +376,10 @@ export default function AuthPage() {
         {/* LOGIN CARD */}
         {mode === "login" && (
           <div className="w-full h-[500px] sm:h-[540px] bg-white rounded-2xl shadow-xl p-6 sm:p-8 flex flex-col justify-center">
-            <div className="mx-auto w-12 h-12 bg-gradient-to-br from-purple-500 to-blue-500 rounded-lg flex items-center justify-center text-white text-lg font-bold mb-6">
-              S
+            <div className="mx-auto w-12 h-12 bg-gradient-to-br from-blue-500 to-blue-500 rounded-lg flex items-center justify-center text-white text-lg font-bold mb-6">
+              L
             </div>
-            <h2 className="text-center text-lg sm:text-xl font-bold text-purple-700">Welcome Back</h2>
+            <h2 className="text-center text-lg sm:text-xl font-bold text-blue-600">Welcome Back</h2>
             <p className="text-center text-gray-500 mb-6 text-sm sm:text-base">
               Sign in to your SmartShelf account
             </p>
@@ -410,7 +410,7 @@ export default function AuthPage() {
               {error && <p className="text-red-500 text-sm">{error}</p>}
               <button
                 type="submit"
-                className="w-full bg-gradient-to-r from-blue-500 to-purple-500 text-white py-3 rounded-lg font-medium text-sm sm:text-base"
+                className="w-full bg-gradient-to-r from-blue-600 to-blue-600 text-white py-3 rounded-[50px] font-medium text-sm sm:text-base"
               >
                 Sign In
               </button>
@@ -445,7 +445,7 @@ export default function AuthPage() {
         {/* SIGNUP CARD */}
         {mode === "signup" && (
           <div className="w-full h-[540px] bg-white rounded-2xl shadow-xl p-6 sm:p-8 flex flex-col justify-center">
-            <h2 className="text-center text-lg sm:text-xl font-bold text-purple-700">Create Account</h2>
+            <h2 className="text-center text-lg sm:text-xl font-bold text-blue-600">Create Account</h2>
             <form onSubmit={handleSignup} className="space-y-4 mt-4">
               <div className="flex items-center bg-gray-100 rounded-lg px-3">
                 <FaUser className="text-gray-400" />
@@ -494,7 +494,7 @@ export default function AuthPage() {
               {error && <p className="text-red-500 text-sm">{error}</p>}
               <button
                 type="submit"
-                className="w-full bg-gradient-to-r from-blue-500 to-purple-500 text-white py-3 rounded-lg font-medium text-sm sm:text-base"
+                className="w-full bg-gradient-to-r from-blue-600 to-blue-600 text-white py-3 rounded-[50px] font-medium text-sm sm:text-base"
               >
                 Create Account
               </button>
@@ -511,7 +511,7 @@ export default function AuthPage() {
         {/* RESET PASSWORD CARD */}
         {mode === "reset" && (
           <div className="w-full h-[500px] bg-white rounded-2xl shadow-xl p-6 sm:p-8 flex flex-col justify-center">
-            <h2 className="text-center text-lg sm:text-xl font-bold text-purple-700">Reset Password</h2>
+            <h2 className="text-center text-lg sm:text-xl font-bold text-blue-600">Reset Password</h2>
             <form onSubmit={handleResetPassword} className="space-y-4 mt-4">
               <input
                 type="email"
@@ -530,7 +530,7 @@ export default function AuthPage() {
                 required
               />
               {error && <p className="text-red-500 text-sm">{error}</p>}
-              <button type="submit" className="w-full bg-purple-500 text-white py-2 rounded">
+              <button type="submit" className="w-full bg-blue-600 text-white py-2 rounded-[50px]">
                 Reset Password
               </button>
             </form>
