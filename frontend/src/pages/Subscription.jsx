@@ -70,7 +70,7 @@ export default function SubscriptionPage() {
   return (
     <div className="min-h-screen bg-[#f0efe9] text-gray-800 dark:text-gray-200">
       {/* Hero Section */}
-      <section className="text-center py-16 px-6">
+      <section className="text-center py-10 pb-5 px-6">
         <motion.h1
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -118,7 +118,7 @@ export default function SubscriptionPage() {
             <motion.div
               key={idx}
               whileHover={{ scale: 1.05 }}
-              className={`p-8 bg-gray-50 dark:bg-gray-800 rounded-2xl shadow-md text-center border ${
+              className={`p-8 bg-gray-50 dark:bg-gray-800 rounded-[50px] shadow-md text-center border ${
                 plan.popular ? "border-blue-600" : "border-gray-200"
               }`}
             >
@@ -143,14 +143,14 @@ export default function SubscriptionPage() {
               {plan.title !== "Free" ? (
                 <button
                   onClick={() => handleCheckout(plan)}
-                  className="px-6 py-2 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-semibold transition w-full"
+                  className="px-6 py-2 rounded-[50px] bg-blue-600 hover:bg-blue-700 text-white font-semibold transition w-full"
                 >
                   Choose Plan
                 </button>
               ) : (
                 <button
                   disabled
-                  className="px-6 py-2 rounded-xl bg-gray-400 text-white font-semibold w-full cursor-not-allowed"
+                  className="px-6 py-2 rounded-[50px] bg-gray-400 text-white font-semibold w-full cursor-not-allowed"
                 >
                   Current Plan
                 </button>

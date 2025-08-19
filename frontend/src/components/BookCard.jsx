@@ -53,16 +53,18 @@ export default function BookCard({ book }) {
       />
 
       {/* Hover Dark Overlay */}
-      <div className="absolute inset-0 bg-black opacity-0 group-hover:opacity-60 transition-opacity duration-300"></div>
+      <div className="absolute inset-0 bg-black opacity-0 group-hover:opacity-70 transition-opacity duration-300"></div>
 
       {/* Bookmark Button */}
       <button
         onClick={toggleBookmark}
-        className="absolute top-2 right-2 p-1 bg-white dark:bg-gray-700 rounded-full shadow opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10"
+        // className="absolute top-2 right-2 p-1 bg-white dark:bg-gray-700 rounded-full shadow opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10"
+        className="absolute top-2 right-2 p-1 opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10"
+
       >
         <FaBookmark
-          className={`text-sm ${
-            bookmarked ? "text-yellow-400" : "text-gray-400"
+          className={`text-md ${
+            bookmarked ? "text-yellow-400" : "text-white"
           }`}
         />
       </button>
@@ -76,7 +78,7 @@ export default function BookCard({ book }) {
           <p className="text-xs text-gray-200 truncate">{book.author}</p>
           <Link
             to={`/bookreader/${book.id}`}
-            className="mt-2 block text-center bg-indigo-600 text-white py-1 rounded hover:bg-indigo-700 text-xs"
+            className="mt-2 block text-center bg-blue-600 text-white py-1 rounded-[50px] hover:bg-indigo-700 text-xs"
           >
             Read
           </Link>

@@ -22,15 +22,18 @@ def extract_text_from_pdf(pdf_file):
         text += page.get_text("text") + "\n"
     return text.strip()
 
+
 def chunk_text(text, max_words=500):
     """Split text into chunks of max_words size"""
     words = text.split()
     for i in range(0, len(words), max_words):
         yield " ".join(words[i:i + max_words])
 
+
 def summarize_chunk(chunk):
     """Summarize a single chunk"""
     return summarizer(chunk, max_length=150, min_length=30, do_sample=False)[0]['summary_text']
+
 
 def get_pdf_hash(pdf_file):
     """Generate MD5 hash for PDF"""
@@ -74,6 +77,25 @@ def summarize_pdf(request):
         return Response({"error": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 
+def chunk_text_for_translation(text, max_chars=3000):
+    """Split text into chunks safe for Google Translate API (limit ~5000 chars, we use 3000)"""
+    words = text.split()
+    chunks, current_chunk = [], []
+
+    for word in words:
+        # If adding this word exceeds max_chars, push current chunk and reset
+        if len(" ".join(current_chunk + [word])) > max_chars:
+            chunks.append(" ".join(current_chunk))
+            current_chunk = [word]
+        else:
+            current_chunk.append(word)
+
+    if current_chunk:
+        chunks.append(" ".join(current_chunk))
+
+    return chunks
+
+
 @api_view(["POST"])
 def translate_summary(request):
     try:
@@ -84,7 +106,14 @@ def translate_summary(request):
             return Response({"error": "Text and language are required."}, status=status.HTTP_400_BAD_REQUEST)
 
         translator = Translator()
-        translated_text = translator.translate(text, dest=target_lang).text
+        chunks = chunk_text_for_translation(text)
+
+        translated_chunks = []
+        for chunk in chunks:
+            translated = translator.translate(chunk, dest=target_lang).text
+            translated_chunks.append(translated)
+
+        translated_text = " ".join(translated_chunks)
 
         return Response({"translated_text": translated_text}, status=status.HTTP_200_OK)
 

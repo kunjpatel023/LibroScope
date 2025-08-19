@@ -136,8 +136,8 @@ export default function Dashboard() {
                   onClick={() => handleBookmark(book.id)}
                   className={`transition ${
                     bookmarkedIds.includes(book.id)
-                      ? "text-yellow-700"
-                      : "text-black hover:text-yellow-500"
+                      ? "text-yellow-400"
+                      : "text-black hover:text-yellow-400"
                   }`}
                 >
                   <FaBookmark className="w-5 h-5" />
@@ -145,7 +145,7 @@ export default function Dashboard() {
                 <button
                   onClick={() => navigate(`/bookreader/${book.id}`)}
                   className="px-3 py-1 text-sm sm:text-base
-                  bg-gradient-to-r from-blue-500 to-purple-500
+                  bg-blue-500
                   text-white font-medium rounded-full shadow
                   hover:scale-105 transition"
                 >
