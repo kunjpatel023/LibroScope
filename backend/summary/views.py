@@ -10,12 +10,8 @@ from googletrans import Translator
 import hashlib
 from .models import PDFSummary
 
-# ✅ Load summarization model once
 summarizer = pipeline("summarization", model="sshleifer/distilbart-cnn-12-6")
 
-# ===============================
-# Helper functions
-# ===============================
 
 def extract_text_from_pdf(pdf_file):
     """Extract text from PDF using PyMuPDF"""
@@ -43,9 +39,6 @@ def get_pdf_hash(pdf_file):
     pdf_file.seek(0)
     return file_hash
 
-# ===============================
-# API Endpoints
-# ===============================
 
 @api_view(["POST"])
 def summarize_pdf(request):

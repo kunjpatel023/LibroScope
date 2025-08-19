@@ -9,15 +9,7 @@
   /* font-family: "Sour Gummy", serif; */
   font-family: "Libertinus Serif", serif;
 }
-/* :root {
-  background: #b94545;
-}  */
-/* helpers
-html { scroll-behavior: smooth; }
-/* flip card basics */
-/* .flip-3d { perspective: 1200px; }
-.flip-inner { transition: transform 0.8s; transform-style: preserve-3d; }
-.flip-face { backface-visibility: hidden; transform-style: preserve-3d; } */
+
 .flip-3d {
   perspective: 1000px;
 }

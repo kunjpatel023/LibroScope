@@ -1,62 +1,23 @@
-# # from django.shortcuts import render
 
-# # # Create your views here.
-# # from rest_framework import generics
-# # from django.contrib.auth.models import User
-# # from .serializers import RegisterSerializer
-# # from rest_framework.permissions import AllowAny
-
-# # class RegisterView(generics.CreateAPIView):
-# #     queryset = User.objects.all()
-# #     permission_classes = (AllowAny,)
-# #     serializer_class = RegisterSerializer
-# from rest_framework.decorators import api_view
-# from rest_framework.response import Response
-# from rest_framework import status
-# from django.contrib.auth.models import User
-# from django.contrib.auth.hashers import make_password
-
-# @api_view(['POST'])
-# def register_user(request):
-#     data = request.data
-#     if User.objects.filter(username=data['username']).exists():
-#         return Response({"detail": "User already exists"}, status=status.HTTP_400_BAD_REQUEST)
-    
-#     user = User.objects.create(
-#         username=data['username'],
-#         email=data['email'],
-#         password=make_password(data['password']),
-#     )
-#     return Response({"detail": "User registered successfully"}, status=status.HTTP_201_CREATED)
-
-
-
-
-from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework import status
-from django.contrib.auth.models import User
 from django.contrib.auth.hashers import make_password
 from rest_framework_simplejwt.tokens import RefreshToken
 from django.contrib.auth import authenticate
 from rest_framework.permissions import IsAuthenticated
-
-
-# @api_view(['POST'])
-# def register_user(request):
-#     data = request.data
-#     if User.objects.filter(username=data['username']).exists():
-#         return Response({"detail": "User already exists"}, status=status.HTTP_400_BAD_REQUEST)
-    
-#     user = User.objects.create(
-#         username=data['username'],
-#         email=data['email'],
-#         password=make_password(data['password']),
-#     )
-#     return Response({"detail": "User registered successfully"}, status=status.HTTP_201_CREATED)
-
-
 from .serializers import RegisterSerializer
+from rest_framework import generics
+from .models import ContactMessage
+from .serializers import ContactMessageSerializer
+from rest_framework.decorators import api_view, permission_classes
+from rest_framework.response import Response
+from .models import Profile, ReadingHistory, BookmarkedBook
+from .serializers import ProfileSerializer, ReadingHistorySerializer, BookmarkedBookSerializer
+from django.contrib.auth.models import User
+from books.models import Book
+
+
+
 
 @api_view(['POST'])
 def register_user(request):
@@ -91,13 +52,6 @@ def login_user(request):
     }, status=status.HTTP_200_OK)
 
 
-from rest_framework.decorators import api_view, permission_classes
-from rest_framework.response import Response
-from rest_framework.permissions import IsAuthenticated
-from .models import Profile, ReadingHistory, BookmarkedBook
-from .serializers import ProfileSerializer, ReadingHistorySerializer, BookmarkedBookSerializer
-from django.contrib.auth.models import User
-from books.models import Book
 
 
 @api_view(["GET"])
@@ -183,10 +137,6 @@ def reset_password(request):
         return Response({"error": "User not found"}, status=404)
 
 
-
-
-
-
 # ------------------------ stripe payment method -----------------------
 # backend/views.py
 import stripe
@@ -222,9 +172,7 @@ def create_checkout_session(request):
 
 
 # ---------------------------------------------contact us details -------------------------
-from rest_framework import generics
-from .models import ContactMessage
-from .serializers import ContactMessageSerializer
+
 
 class ContactMessageCreateView(generics.CreateAPIView):
     queryset = ContactMessage.objects.all()

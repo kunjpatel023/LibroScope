@@ -51,7 +51,7 @@ export default function LandingPage({ toggleDark, dark }) {
 
   const faqData = [
     {
-      q: "How does SmartShelf summarize books?",
+      q: "How does LibroScope summarize books?",
       a: "We use advanced AI algorithms to extract key insights from books and generate concise summaries.",
     },
     {
@@ -59,17 +59,17 @@ export default function LandingPage({ toggleDark, dark }) {
       a: "Yes! Our platform supports translations into 50+ languages instantly.",
     },
     {
-      q: "Is SmartShelf free to use?",
+      q: "Is LibroScope free to use?",
       a: "You can get started for free. Premium plans unlock advanced features and unlimited summaries.",
     },
     {
       q: "Can I read full books here?",
-      a: "Currently, SmartShelf focuses on summaries and translations, not full book content.",
+      a: "Currently, LibroScope focuses on summaries and translations, not full book content.",
     },
   ];
 
   const rotatingTexts = [
-    "SmartShelf",
+    "LibroScope",
     "AI Library",
     "Book Summaries",
     "Translations",
@@ -264,17 +264,17 @@ export default function LandingPage({ toggleDark, dark }) {
           {/* Left: Text */}
           <div>
             <h2 className="text-3xl font-bold mb-6 text-black">
-              About SmartShelf
+              About LibroScope
             </h2>
             <p className="text-gray-700 mb-4 leading-relaxed">
-              SmartShelf is your AI-powered reading companion. We help you
+              LibroScope is your AI-powered reading companion. We help you
               **instantly summarize** books, **translate** them into over 50
               languages, and even answer your questions about their content.
             </p>
             <p className="text-gray-700 mb-4 leading-relaxed">
               Whether you’re a student needing quick notes, a researcher diving
               deep into topics, or a casual reader curious about new books —
-              SmartShelf lets you explore knowledge faster and smarter.
+              LibroScope lets you explore knowledge faster and smarter.
             </p>
             <p className="text-gray-700 leading-relaxed">
               Our mission is simple: **make reading smarter, easier, and more
@@ -292,7 +292,7 @@ export default function LandingPage({ toggleDark, dark }) {
           >
             <img
               src="/images/lib1.jpg"
-              alt="About SmartShelf"
+              alt="About LibroScope"
               className="rounded-2xl shadow-lg max-w-full h-auto"
             />
           </motion.div>
@@ -306,7 +306,7 @@ export default function LandingPage({ toggleDark, dark }) {
           {/* Brand Section */}
           <div>
             <h2 className="text-2xl font-bold bg-black bg-clip-text text-transparent">
-              SmartShelf
+            LibroScope
             </h2>
             <p className="mt-3 text-sm text-gray-600">
               Your AI-powered eLibrary for summaries, translations, and more.
@@ -363,7 +363,7 @@ export default function LandingPage({ toggleDark, dark }) {
 
         {/* Bottom Bar */}
         <div className="border-t border-gray-200 py-4 text-center text-sm text-gray-500">
-          © {new Date().getFullYear()} SmartShelf. All rights reserved.
+          © {new Date().getFullYear()} LibroScope. All rights reserved.
         </div>
       </footer>
     </div>

@@ -9,7 +9,7 @@ class CategorySerializer(serializers.ModelSerializer):
 class BookSerializer(serializers.ModelSerializer):
     category = serializers.CharField(source="category.name",read_only=True)
     image = serializers.SerializerMethodField()
-    pdf = serializers.SerializerMethodField()  # ✅ include pdf URL
+    pdf = serializers.SerializerMethodField() 
 
     class Meta:
         model = Book
