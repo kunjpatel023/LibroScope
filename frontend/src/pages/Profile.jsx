@@ -61,9 +61,6 @@ export default function Profile() {
       });
   }, []);
 
-
-
-
   const handleSave = () => {
     const token = localStorage.getItem("access");
     axios
@@ -208,84 +205,100 @@ export default function Profile() {
         {/* Content grid - Left (Progress) | Right (History + Bookmarks) */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {/* LEFT COL: Reading Progress */}
-          <div className="bg-white p-4 sm:p-6 rounded-2xl shadow flex flex-col h-full">
-            <h3 className="text-lg sm:text-xl font-bold mb-4">Reading Progress</h3>
-            {progressList.length === 0 ? (
-              <p className="text-gray-500">No books in progress</p>
-            ) : (
-              progressList.map((p, i) => (
-                <div
-                  key={i}
-                  className="flex items-center gap-4 border-b py-4 last:border-b-0"
-                >
-                  <img
-                    src={fixImageUrl(p.book.image)}
-                    alt={p.book.title}
-                    className="w-20 h-30 object-cover shadow-2xl rounded-xl"
-                  />
-                  <div className="flex-1">
-                    <div className="font-bold">{p.book.title}</div>
-                    <div className="text-sm text-gray-500 mb-1">
-                      by {p.book.author}
-                    </div>
-                    <div className="w-full bg-gray-200 h-3 rounded-full my-1">
-                      <div
-                        className="bg-blue-500 h-3 rounded-full"
-                        style={{ width: `${p.progress_percent}%` }}
-                      />
-                    </div>
-                    <div className="text-xs text-gray-500">
-                      {p.current_page} of {p.total_pages} pages • {p.progress_percent}% read
-                      {p.progress_percent >= 100 && (
-                        <span className="text-green-500 font-semibold ml-1">✓ Completed</span>
-                      )}
-                    </div>
-                    <div className="mt-1 text-xs text-gray-400">
-                      Last updated: {new Date(p.last_updated).toLocaleString()}
-                    </div>
-                  </div>
-                  {/* <Link
-                    to={`/bookreader/${p.book.id}`}
-                    className="flex items-center gap-1 px-3 py-2 bg-blue-500 text-white text-base rounded-[50px] shadow hover:bg-blue-600 transition"
-                  >
-                    <FaBookOpen /> Continue
-                  </Link> */}
-                  <Link
-                    to={`/bookreader/${p.book.id}`}
-                    state={{ currentPage: p.current_page }}   // ✅ send saved page
-                    className="flex items-center gap-1 px-3 py-2 bg-blue-500 text-white text-base rounded-[50px] shadow hover:bg-blue-600 transition"
-                  >
-                    <FaBookOpen /> Continue
-                  </Link>
-                </div>
-              ))
-            )}
+{/* LEFT COL: Reading Progress */}
+<div className="bg-white p-3 sm:p-6 rounded-2xl shadow flex flex-col h-full">
+  <h3 className="text-lg sm:text-xl font-bold mb-4">Reading Progress</h3>
+  {progressList.length === 0 ? (
+    <p className="text-gray-500">No books in progress</p>
+  ) : (
+    progressList.map((p, i) => (
+      <div
+        key={i}
+        className="flex flex-col sm:flex-row items-center sm:items-start gap-4 border-b py-4 last:border-b-0"
+      >
+        {/* Book Image */}
+        <img
+          src={fixImageUrl(p.book.image)}
+          alt={p.book.title}
+          className="w-16 h-24 sm:w-20 sm:h-30 object-cover shadow-xl rounded-lg"
+        />
+
+        {/* Book Details */}
+        <div className="flex-1 text-center sm:text-left">
+          <div className="font-bold text-base sm:text-lg">{p.book.title}</div>
+          <div className="text-xs sm:text-sm text-gray-500 mb-1">
+            by {p.book.author}
           </div>
+
+          {/* Progress Bar */}
+          <div className="w-full bg-gray-200 h-2 sm:h-3 rounded-full my-2">
+            <div
+              className="bg-blue-500 h-2 sm:h-3 rounded-full"
+              style={{ width: `${p.progress_percent}%` }}
+            />
+          </div>
+
+          <div className="text-xs text-gray-500">
+            {p.current_page} / {p.total_pages} pages • {p.progress_percent}%
+          </div>
+          <div className="text-[10px] sm:text-xs text-gray-400 mt-1">
+            Last updated: {new Date(p.last_updated).toLocaleString()}
+          </div>
+        </div>
+
+        {/* Continue Button */}
+        <Link
+          to={`/bookreader/${p.book.id}`}
+          state={{ currentPage: p.current_page }}
+          className="mt-2 sm:mt-0 px-3 py-2 text-sm sm:text-base bg-blue-500 text-white rounded-[50px] shadow hover:bg-blue-600 transition"
+        >
+          <FaBookOpen className="inline mr-1" /> Continue
+        </Link>
+      </div>
+    ))
+  )}
+</div>
+
 
           {/* RIGHT COL: History + Bookmarks (stacked vertically) */}
           <div className="flex flex-col gap-6">
             {/* Reading History */}
             <div className="bg-white p-4 sm:p-6 rounded-2xl shadow flex-1">
-              <h3 className="text-lg sm:text-xl font-bold mb-4">Reading History</h3>
+              <h3 className="text-lg sm:text-xl font-bold mb-4">
+                Reading History
+              </h3>
               {history.length === 0 ? (
                 <p className="text-gray-500">No completed books yet</p>
               ) : (
                 history.map((h, i) => (
                   <div
                     key={i}
-                    className="flex items-start sm:items-center flex-col sm:flex-row border-b py-3 last:border-b-0"
+                    className="flex flex-col sm:flex-row sm:items-center border-b py-3 last:border-b-0 gap-3"
                   >
                     <img
                       src={fixImageUrl(h.book.image)}
                       alt={h.book.title}
-                      className="w-20 h-30 object-cover rounded mb-2 sm:mb-0 sm:mr-3"
+                      className="w-16 h-24 sm:w-20 sm:h-30 object-cover rounded mb-2 sm:mb-0 sm:mr-3"
                     />
-                    <div className="text-center sm:text-left">
-                      <p className="font-bold">{h.book.title}</p>
-                      <p className="text-sm text-gray-500">by {h.book.author}</p>
+                    <div className="flex-1 text-center sm:text-left">
+                      <p className="font-bold text-base sm:text-lg">
+                        {h.book.title}
+                      </p>
+                      <p className="text-sm text-gray-500">
+                        by {h.book.author}
+                      </p>
                       <p className="text-xs text-gray-400">
                         Completed on {h.completed_on}
                       </p>
+                    </div>
+                    {/* ✅ Button responsive */}
+                    <div className="flex gap-2 w-full sm:w-auto mt-2 sm:mt-0">
+                      <Link
+                        to={`/bookreader/${h.book.id}`}
+                        className="flex-1 sm:flex-initial text-center px-3 py-2 bg-blue-500 text-white text-sm sm:text-base rounded-[50px] shadow hover:bg-blue-600 transition"
+                      >
+                        <FaBookOpen className="inline mr-1" /> Read Again
+                      </Link>
                     </div>
                   </div>
                 ))
@@ -294,38 +307,44 @@ export default function Profile() {
 
             {/* Bookmarked Books */}
             <div className="bg-white p-4 sm:p-6 rounded-2xl shadow flex-1">
-              <h3 className="text-lg sm:text-xl font-bold mb-4">Bookmarked Books</h3>
+              <h3 className="text-lg sm:text-xl font-bold mb-4">
+                Bookmarked Books
+              </h3>
               {bookmarks.length === 0 ? (
                 <p className="text-gray-500">No bookmarks yet</p>
               ) : (
                 bookmarks.map((b, i) => (
                   <div
                     key={i}
-                    className="flex flex-col sm:flex-row items-start sm:items-center justify-between border-b py-3 last:border-b-0"
+                    className="flex flex-col sm:flex-row items-start sm:items-center justify-between border-b py-3 last:border-b-0 gap-3"
                   >
-                    <div className="flex items-start sm:items-center flex-col sm:flex-row">
+                    <div className="flex flex-col sm:flex-row items-center sm:items-start gap-3 flex-1">
                       <img
                         src={fixImageUrl(b.book.image)}
                         alt={b.book.title}
-                        className="w-20 h-30 object-cover shadow-2xl rounded-xl mb-2 sm:mb-0 sm:mr-3"
+                        className="w-16 h-24 sm:w-20 sm:h-30 object-cover shadow-2xl rounded-xl"
                       />
                       <div className="text-center sm:text-left">
-                        <p className="font-bold">{b.book.title}</p>
+                        <p className="font-bold text-base sm:text-lg">
+                          {b.book.title}
+                        </p>
                         <p className="text-sm text-gray-500">{b.book.author}</p>
                       </div>
                     </div>
-                    <div className="flex gap-3 mt-2 sm:mt-0 flex-wrap">
+
+                    {/* ✅ Buttons responsive */}
+                    <div className="flex flex-col sm:flex-row gap-2 w-full sm:w-auto">
                       <Link
                         to={`/bookreader/${b.book.id}`}
-                        className="flex items-center gap-1 px-3 py-2 bg-blue-500 text-white text-base rounded-[50px] mt-6 shadow hover:bg-blue-600 transition"
+                        className="flex-1 sm:flex-initial text-center px-3 py-2 bg-blue-500 text-white text-sm sm:text-base rounded-[50px] shadow hover:bg-blue-600 transition"
                       >
-                        <FaBookOpen /> Read Now
+                        <FaBookOpen className="inline mr-1" /> Read Now
                       </Link>
                       <button
                         onClick={() => handleRemoveBookmark(b.book.id)}
-                        className="mt-5 text-lg text-red-500 hover:text-red-700"
+                        className="flex-1 sm:flex-initial px-3 py-2 text-red-500 border border-red-400 rounded-[50px] text-sm sm:text-base hover:bg-red-50 transition"
                       >
-                        <FaTrash />
+                        <FaTrash className="inline mr-1" /> Remove
                       </button>
                     </div>
                   </div>

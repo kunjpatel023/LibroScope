@@ -94,78 +94,80 @@ export default function Categories() {
           : "bg-[#f0efe9] text-gray-900"
       }`}
     >
-      {/* Title Section */}
-      <section className="text-center py-2 px-6">
-        <motion.h1
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          className="text-4xl md:text-5xl font-bold"
-        >
-          Book{" "}
-          <span className="text-blue-600 dark:text-blue-400">
-            Categories
-          </span>
-        </motion.h1>
-      </section>
-
-      {/* Controls + Category Buttons Together */}
-      <motion.div
-        initial={{ opacity: 0, y: 30 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6, delay: 0.2 }}
-        className={`flex flex-col gap-4 p-3 m-4 mx-7 rounded-[50px] shadow-[0_20px_50px_rgba(0,0,0,0.25)] mb-6 ${
-          theme === "dark" ? "bg-gray-700" : "bg-[#f7f9fa]"
-        }`}
-      >
-        {/* Search + Sort + View */}
-        <div className="flex rounded-[50px] flex-col sm:flex-row sm:items-center gap-3">
-          <input
-            type="text"
-            placeholder="Search books..."
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-            className="flex-1 px-4 py-2  rounded-[50px] border border-black focus:outline-none focus:ring-2 focus:ring-gray-400 w-full sm:w-auto"
-          />
-
-          <select
-            value={sortOption}
-            onChange={(e) => setSortOption(e.target.value)}
-            className="px-3 py-2 rounded-[50px] border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-400 w-full sm:w-auto"
+      {/* Sticky Header Section */}
+      <div className="sticky top-0 z-20 bg-inherit pt-0">
+        {/* Title Section */}
+        <section className="text-center py-2 px-6 bg-inherit">
+          <motion.h1
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            className="text-3xl md:text-5xl font-bold"
           >
-            <option value="az">Sort: A-Z</option>
-            <option value="za">Sort: Z-A</option>
-            <option value="newest">Newest</option>
-            <option value="oldest">Oldest</option>
-          </select>
+            Book{" "}
+            <span className="text-blue-600 dark:text-blue-400">
+              Categories
+            </span>
+          </motion.h1>
+        </section>
 
-          <div className="flex gap-2 justify-center sm:justify-start">
-            <button
-              onClick={() => setView("grid")}
-              className={`p-2 rounded-4xl ${
-                view === "grid"
-                  ? "bg-black text-white"
-                  : "bg-white"
-              }`}
+        {/* Controls + Category Buttons Together */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.2 }}
+          className={`flex flex-col gap-4 p-3 m-4 mx-7 rounded-[50px] shadow-[0px_20px_20px_rgba(0,0,0,0.2)] mb-8 ${
+            theme === "dark" ? "bg-gray-700" : "bg-[#f7f9fa]"
+          }`}
+        >
+          {/* Search + Sort + View */}
+          <div className="flex rounded-[50px] flex-col sm:flex-row sm:items-center gap-3">
+            <input
+              type="text"
+              placeholder="Search books..."
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              className="flex-1 px-4 py-2  rounded-[50px] border border-black focus:outline-none focus:ring-2 focus:ring-gray-400 w-full sm:w-auto"
+            />
+
+            <select
+              value={sortOption}
+              onChange={(e) => setSortOption(e.target.value)}
+              className="px-3 py-2 rounded-[50px] border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-400 w-full sm:w-auto"
             >
-              <FaThLarge />
-            </button>
-            <button
-              onClick={() => setView("list")}
-              className={`p-2 rounded-4xl ${
-                view === "list"
-                  ? "bg-black text-white"
-                  : "bg-white"
-              }`}
-            >
-              <FaList />
-            </button>
+              <option value="az">Sort: A-Z</option>
+              <option value="za">Sort: Z-A</option>
+              <option value="newest">Newest</option>
+              <option value="oldest">Oldest</option>
+            </select>
+
+            <div className="flex gap-2 justify-center sm:justify-start">
+              <button
+                onClick={() => setView("grid")}
+                className={`p-2 rounded-4xl ${
+                  view === "grid"
+                    ? "bg-black text-white"
+                    : "bg-white"
+                }`}
+              >
+                <FaThLarge />
+              </button>
+              <button
+                onClick={() => setView("list")}
+                className={`p-2 rounded-4xl ${
+                  view === "list"
+                    ? "bg-black text-white"
+                    : "bg-white"
+                }`}
+              >
+                <FaList />
+              </button>
+            </div>
           </div>
-        </div>
         </motion.div>
-        
-        {/* Category Buttons (Inside same box) */}
-        <div className="flex gap-3 overflow-x-auto scrollbar-hide px-7 pb-4">
+
+        {/* Category Buttons */}
+        <div className="flex gap-3 overflow-x-auto scrollbar-hide px-7 pb-3 bg-inherit">
           {categories.map((cat, idx) => (
             <button
               key={idx}
@@ -181,7 +183,7 @@ export default function Categories() {
           ))}
           <div className="w-4 flex-shrink-0"></div>
         </div>
-      
+      </div>
 
       {/* Books Display */}
       <div
@@ -202,20 +204,25 @@ export default function Categories() {
                 key={book.id}
                 className="flex flex-col sm:flex-row sm:items-center justify-between
                 bg-[#f7f9fa] rounded-4xl shadow-md hover:shadow-lg transition-all
-                overflow-hidden h-40 w-full p-4"
+                overflow-hidden w-full p-4 gap-3"
               >
-                <div className="flex items-center gap-4">
+                {/* Left side */}
+                <div className="flex items-center gap-4 w-full sm:w-auto">
                   <img
                     src={book.image}
                     alt={book.title}
-                    className="w-20 h-30 object-cover rounded-xl border border-[#C0B89F]"
+                    className="w-20 h-28 object-cover rounded-xl border border-[#C0B89F]"
                   />
-                  <div>
-                    <h4 className="font-semibold">{book.title}</h4>
+                  <div className="min-w-0">
+                    <h4 className="font-semibold text-base sm:text-lg truncate">
+                      {book.title}
+                    </h4>
                     <p className="text-sm text-gray-500">{book.author}</p>
                   </div>
                 </div>
-                <div className="flex items-center gap-3">
+
+                {/* Right side (buttons) */}
+                <div className="flex items-center gap-3 justify-end sm:justify-start w-full sm:w-auto">
                   <button
                     onClick={() => handleBookmark(book.id)}
                     className={`transition ${
@@ -228,7 +235,7 @@ export default function Categories() {
                   </button>
                   <button
                     onClick={() => navigate(`/bookreader/${book.id}`)}
-                    className="bg-blue-500 text-white px-3 py-1 rounded-[50px] hover:bg-blue-600 transition text-sm sm:text-base"
+                    className="bg-blue-500 text-white px-4 py-2 rounded-[50px] hover:bg-blue-600 transition text-sm sm:text-base w-full sm:w-auto"
                   >
                     Read Now
                   </button>

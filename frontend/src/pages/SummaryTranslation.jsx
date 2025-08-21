@@ -198,7 +198,7 @@ export default function SummaryTranslation() {
           initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
-          className="mt-12 max-w-3xl mx-auto p-8 bg-white dark:bg-gray-900 rounded-2xl shadow-lg"
+          className="mt-12 max-w-3xl mx-auto p-8 bg-white dark:bg-gray-900 rounded-[50px] shadow-lg"
         >
           <h2 className="text-2xl font-semibold mb-6 text-center">📄 Upload Your Document</h2>
           {file ? (
@@ -222,7 +222,7 @@ export default function SummaryTranslation() {
             <button
               onClick={handleGenerateSummary}
               disabled={loading || !file}
-              className="px-6 py-2 bg-green-600 hover:bg-green-700 text-white rounded-lg shadow transition w-full sm:w-auto disabled:opacity-50"
+              className="px-6 py-2 bg-green-600 hover:bg-green-700 text-white rounded-[50px] shadow transition w-full sm:w-auto disabled:opacity-50"
             >
               {loading ? "Generating..." : "Generate Summary"}
             </button>
@@ -237,30 +237,30 @@ export default function SummaryTranslation() {
           initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
-          className="mt-12 max-w-3xl mx-auto p-8 bg-white dark:bg-gray-900 rounded-2xl shadow-lg"
+          className="mt-12 max-w-3xl mx-auto p-8 bg-white dark:bg-gray-900 rounded-[50px] shadow-lg"
         >
           <h2 className="text-xl font-semibold mb-4">📝 Generated Summary</h2>
-          <div className="p-5 bg-gray-50 dark:bg-gray-800 rounded-lg border min-h-[150px] whitespace-pre-wrap text-sm sm:text-base">
+          <div className="p-5 bg-gray-50 dark:bg-gray-800 rounded-[50px] border min-h-[150px] whitespace-pre-wrap text-sm sm:text-base">
             {summary || "No summary yet"}
           </div>
           <div className="flex flex-col sm:flex-row gap-3 mt-6">
             <button
               onClick={() => setCurrentStep(1)}
-              className="w-full sm:w-auto px-5 py-2 bg-gray-300 hover:bg-gray-400 rounded-lg transition"
+              className="w-full sm:w-auto px-5 py-2 bg-gray-300 hover:bg-gray-400 rounded-[50px] transition"
             >
               Previous
             </button>
             <button
               onClick={moveToTranslateStep}
               disabled={!summary}
-              className="w-full sm:w-auto px-5 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg shadow transition disabled:opacity-50"
+              className="w-full sm:w-auto px-5 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-[50px] shadow transition disabled:opacity-50"
             >
               Translate
             </button>
             <button
               onClick={moveToTTSStep}
               disabled={!summary}
-              className="w-full sm:w-auto px-5 py-2 bg-purple-600 hover:bg-purple-700 text-white rounded-lg shadow transition disabled:opacity-50"
+              className="w-full sm:w-auto px-5 py-2 bg-purple-600 hover:bg-purple-700 text-white rounded-[50px] shadow transition disabled:opacity-50"
             >
               Listen
             </button>
@@ -275,14 +275,14 @@ export default function SummaryTranslation() {
           initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
-          className="mt-12 max-w-3xl mx-auto p-8 bg-white dark:bg-gray-900 rounded-2xl shadow-lg"
+          className="mt-12 max-w-3xl mx-auto p-8 bg-white dark:bg-gray-900 rounded-[50px] shadow-lg"
         >
           <h2 className="text-xl font-semibold mb-4">🌍 Translation</h2>
           <div className="flex flex-col sm:flex-row sm:items-center gap-4 mb-5">
             <select
               value={lang}
               onChange={(e) => setLang(e.target.value)}
-              className="p-2 border rounded-lg shadow w-full sm:w-auto focus:ring-2 focus:ring-blue-400"
+              className="p-2 border rounded-[50px] shadow w-full sm:w-auto focus:ring-2 focus:ring-blue-400"
             >
               <option value="en">English</option>
               <option value="hi">Hindi</option>
@@ -296,27 +296,27 @@ export default function SummaryTranslation() {
             <button
               onClick={handleTranslate}
               disabled={loading}
-              className="px-6 py-2 bg-green-600 hover:bg-green-700 text-white rounded-lg shadow transition w-full sm:w-auto"
+              className="px-6 py-2 bg-green-600 hover:bg-green-700 text-white rounded-[50px] shadow transition w-full sm:w-auto"
             >
               {loading ? "Translating..." : "Translate"}
             </button>
           </div>
 
-          <div className="p-5 bg-gray-50 dark:bg-gray-800 rounded-lg border min-h-[150px] whitespace-pre-wrap text-sm sm:text-base">
+          <div className="p-5 bg-gray-50 dark:bg-gray-800 rounded-[50px] border min-h-[150px] whitespace-pre-wrap text-sm sm:text-base">
             {translatedText || "No translation yet"}
           </div>
 
           <div className="flex flex-col sm:flex-row gap-3 mt-6">
             <button
               onClick={() => setCurrentStep(2)}
-              className="px-6 py-2 bg-gray-300 hover:bg-gray-400 rounded-lg transition w-full sm:w-auto"
+              className="px-6 py-2 bg-gray-300 hover:bg-gray-400 rounded-[50px] transition w-full sm:w-auto"
             >
               Previous
             </button>
             <button
               onClick={moveToTTSStep}
               disabled={!translatedText}
-              className="px-6 py-2 bg-purple-600 hover:bg-purple-700 text-white rounded-lg shadow transition disabled:opacity-50 w-full sm:w-auto"
+              className="px-6 py-2 bg-purple-600 hover:bg-purple-700 text-white rounded-[50px] shadow transition disabled:opacity-50 w-full sm:w-auto"
             >
               Listen
             </button>
@@ -331,7 +331,7 @@ export default function SummaryTranslation() {
           initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
-          className="mt-12 max-w-3xl mx-auto p-8 bg-white dark:bg-gray-900 rounded-2xl shadow-lg"
+          className="mt-12 max-w-3xl mx-auto p-8 bg-white dark:bg-gray-900 rounded-[50px] shadow-lg"
         >
           <h2 className="text-xl font-semibold mb-4">🔊 Text to Speech</h2>
 
@@ -339,7 +339,7 @@ export default function SummaryTranslation() {
             <button
               onClick={handleTTS}
               disabled={loading}
-              className="px-6 py-2 bg-purple-600 hover:bg-purple-700 text-white rounded-lg shadow transition w-full sm:w-auto"
+              className="px-6 py-2 bg-purple-600 hover:bg-purple-700 text-white rounded-[50px] shadow transition w-full sm:w-auto"
             >
               {loading ? "Generating Audio..." : "Generate Audio"}
             </button>
@@ -354,7 +354,7 @@ export default function SummaryTranslation() {
           <div className="flex mt-6">
             <button
               onClick={() => setCurrentStep(translatedText ? 3 : 2)}
-              className="px-6 py-2 bg-gray-300 hover:bg-gray-400 rounded-lg transition"
+              className="px-6 py-2 bg-gray-300 hover:bg-gray-400 rounded-[50px] transition"
             >
               Previous
             </button>

@@ -149,3 +149,15 @@ SIMPLE_JWT = {
     'ACCESS_TOKEN_LIFETIME': timedelta(hours=5),  # ⏳ Increase from default 5 min
     'REFRESH_TOKEN_LIFETIME': timedelta(days=7),  # Keep for a week
 }
+
+
+# -------------------------------- stripe payment key---------------------------
+# settings.py
+import os
+from dotenv import load_dotenv
+
+# Load .env
+load_dotenv()
+
+# Stripe Keys
+STRIPE_SECRET_KEY = os.getenv("STRIPE_SECRET_KEY")
