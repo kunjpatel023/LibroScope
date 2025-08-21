@@ -58,7 +58,6 @@ export default function BookCard({ book }) {
       {/* Bookmark Button */}
       <button
         onClick={toggleBookmark}
-        // className="absolute top-2 right-2 p-1 bg-white dark:bg-gray-700 rounded-full shadow opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10"
         className="absolute top-2 right-2 p-1 opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10"
 
       >

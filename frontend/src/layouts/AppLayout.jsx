@@ -20,7 +20,6 @@ export default function AppLayout() {
       <Sidebar collapsed={collapsed} setCollapsed={setCollapsed} />
 
       {/* Main content area - only this scrolls */}
-      {/* <div className="flex-1 overflow-y-auto pl-15 p-4 bg-[#e1e2f7]"> */}
       <div className="flex-1 overflow-y-auto m-5 bg-[#f0efe9]">
 
         <Outlet />

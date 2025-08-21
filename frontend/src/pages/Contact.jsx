@@ -58,7 +58,7 @@ export default function ContactPage() {
           {/* Left: Contact Info */}
           <motion.div
             whileHover={{ scale: 1.02 }}
-            className="p-8 bg-white dark:bg-gray-900 rounded-2xl shadow-lg"
+            className="p-8 bg-white dark:bg-gray-900 rounded-[50px] shadow-lg"
           >
             <h2 className="text-2xl font-semibold mb-6">📞 Get in Touch</h2>
 
@@ -112,7 +112,7 @@ export default function ContactPage() {
           {/* Right: Contact Form */}
           <motion.div
             whileHover={{ scale: 1.02 }}
-            className="p-8 bg-white dark:bg-gray-900 rounded-2xl shadow-lg"
+            className="p-8 bg-white dark:bg-gray-900 rounded-[50px] shadow-lg"
           >
             <h2 className="text-2xl font-semibold mb-6">✉️ Send Us a Message</h2>
             <form className="space-y-4" onSubmit={handleSubmit}>
@@ -162,7 +162,7 @@ export default function ContactPage() {
 
               <button
                 type="submit"
-                className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-lg flex items-center gap-2 justify-center w-full shadow-md transition"
+                className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-[50px] flex items-center gap-2 justify-center w-full shadow-md transition"
               >
                 <span>Send Message</span>
               </button>

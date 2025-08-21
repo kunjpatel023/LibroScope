@@ -71,3 +71,16 @@ class ContactMessageSerializer(serializers.ModelSerializer):
     class Meta:
         model = ContactMessage
         fields = "__all__"
+
+
+from rest_framework import serializers
+from .models import ReadingProgress
+from books.serializers import BookSerializer   # ✅ Make sure this is imported
+
+class ReadingProgressSerializer(serializers.ModelSerializer):
+    book = BookSerializer()
+    progress_percent = serializers.FloatField(read_only=True)  # ✅ no source
+
+    class Meta:
+        model = ReadingProgress
+        fields = ["book", "current_page", "total_pages", "progress_percent", "last_updated"]

@@ -269,3 +269,19 @@ def knn_recommendations(request):
 
     serializer = BookSerializer(rec_books, many=True, context={"request": request})
     return Response(serializer.data)
+
+# ---------------- add book function for admin -----------------------------------------------------
+
+from rest_framework.decorators import api_view, permission_classes, parser_classes
+from rest_framework.permissions import IsAuthenticated, IsAdminUser
+from rest_framework.parsers import MultiPartParser, FormParser
+
+@api_view(['POST'])
+@permission_classes([IsAuthenticated, IsAdminUser])  # ✅ Only admin can add
+@parser_classes([MultiPartParser, FormParser])       # ✅ To accept file uploads
+def add_book(request):
+    serializer = BookSerializer(data=request.data, context={"request": request})
+    if serializer.is_valid():
+        serializer.save()
+        return Response(serializer.data, status=201)
+    return Response(serializer.errors, status=400)

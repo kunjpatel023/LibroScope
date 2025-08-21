@@ -8,6 +8,7 @@ export default function Profile() {
   const [profile, setProfile] = useState(null);
   const [history, setHistory] = useState([]);
   const [bookmarks, setBookmarks] = useState([]);
+  const [progressList, setProgressList] = useState([]); // 🆕 for progress
   const [editMode, setEditMode] = useState(false);
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
@@ -40,14 +41,28 @@ export default function Profile() {
         setBookmarks(res.data.bookmarks);
         setUsername(res.data.profile.user.username);
         setEmail(res.data.profile.user.email);
+        // Now fetch progress list
+        return axios.get(`${BASE_URL}/api/progress/`, {
+          headers: { Authorization: `Bearer ${token}` },
+        });
+      })
+      .then((resp) => {
+        // ✅ Filter out completed books so they only show in history
+        const inProgress = (resp.data || []).filter(
+          (p) => p.progress_percent < 100
+        );
+        setProgressList(inProgress);
         setLoading(false);
       })
       .catch((err) => {
-        console.error("Error fetching profile:", err);
+        console.error("Error fetching profile or progress:", err);
         setError("Failed to load profile. Please log in again.");
         setLoading(false);
       });
   }, []);
+
+
+
 
   const handleSave = () => {
     const token = localStorage.getItem("access");
@@ -88,7 +103,7 @@ export default function Profile() {
 
   return (
     <div className="min-h-screen bg-[#f0efe9]">
-      {/* Header Section with Animation (like Contact.jsx) */}
+      {/* Header Section */}
       <section className="text-center py-4 px-6">
         <motion.h1
           initial={{ opacity: 0, y: -20 }}
@@ -105,9 +120,8 @@ export default function Profile() {
         </p>
       </section>
 
-      {/* Profile Card + Other Sections */}
-      <div className="max-w-6xl mx-auto bg-[#f0efe9] rounded-3xl p-4 sm:p-8 shadow-lg">
-        {/* Profile Card */}
+      {/* Profile Card */}
+      <div className="max-w-6xl mx-auto bg-[#f0efe9] rounded-3xl p-4 sm:p-8">
         <div className="flex flex-col md:flex-row items-center bg-white dark:bg-gray-900 p-6 sm:p-8 rounded-2xl shadow-lg mb-8 w-full transition-all duration-300">
           {/* Avatar */}
           <div className="w-20 h-20 sm:w-24 sm:h-24 bg-white shadow-[10px_20px_50px_10px_rgba(0,0,0,0.2)] rounded-full flex items-center justify-center text-2xl sm:text-3xl text-blue-600 font-bold mb-6 md:mb-0 md:mr-8 select-none">
@@ -159,7 +173,6 @@ export default function Profile() {
                 <h2 className="text-2xl ml-4 sm:text-3xl font-bold text-blue-600 dark:text-blue-400 mb-2">
                   {profile.user.username}
                 </h2>
-
                 <div className="flex flex-col sm:flex-row sm:items-center sm:gap-8 mt-2 text-lg text-gray-700 dark:text-gray-300 space-y-2 sm:space-y-0">
                   <p className="pr-6">
                     <span className="font-semibold pl-4 text-blue-600 dark:text-blue-400">
@@ -192,75 +205,133 @@ export default function Profile() {
           </div>
         </div>
 
-        {/* Bottom Section */}
+        {/* Content grid - Left (Progress) | Right (History + Bookmarks) */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {/* Reading History */}
-          <div className="bg-white p-4 sm:p-6 rounded-2xl shadow">
-            <h3 className="text-lg sm:text-xl font-bold mb-4">Reading History</h3>
-            {history.length === 0 ? (
-              <p className="text-gray-500">No completed books yet</p>
+          {/* LEFT COL: Reading Progress */}
+          <div className="bg-white p-4 sm:p-6 rounded-2xl shadow flex flex-col h-full">
+            <h3 className="text-lg sm:text-xl font-bold mb-4">Reading Progress</h3>
+            {progressList.length === 0 ? (
+              <p className="text-gray-500">No books in progress</p>
             ) : (
-              history.map((h, i) => (
+              progressList.map((p, i) => (
                 <div
                   key={i}
-                  className="flex items-start sm:items-center flex-col sm:flex-row border-b py-3 last:border-b-0"
+                  className="flex items-center gap-4 border-b py-4 last:border-b-0"
                 >
                   <img
-                    src={fixImageUrl(h.book.image)}
-                    alt={h.book.title}
-                    className="w-20 h-30 object-cover rounded-xl mb-2 sm:mb-0 sm:mr-3"
+                    src={fixImageUrl(p.book.image)}
+                    alt={p.book.title}
+                    className="w-20 h-30 object-cover shadow-2xl rounded-xl"
                   />
-                  <div className="text-center sm:text-left">
-                    <p className="font-bold">{h.book.title}</p>
-                    <p className="text-sm text-gray-500">by {h.book.author}</p>
-                    <p className="text-xs text-gray-400">
-                      Completed on {h.completed_on}
-                    </p>
+                  <div className="flex-1">
+                    <div className="font-bold">{p.book.title}</div>
+                    <div className="text-sm text-gray-500 mb-1">
+                      by {p.book.author}
+                    </div>
+                    <div className="w-full bg-gray-200 h-3 rounded-full my-1">
+                      <div
+                        className="bg-blue-500 h-3 rounded-full"
+                        style={{ width: `${p.progress_percent}%` }}
+                      />
+                    </div>
+                    <div className="text-xs text-gray-500">
+                      {p.current_page} of {p.total_pages} pages • {p.progress_percent}% read
+                      {p.progress_percent >= 100 && (
+                        <span className="text-green-500 font-semibold ml-1">✓ Completed</span>
+                      )}
+                    </div>
+                    <div className="mt-1 text-xs text-gray-400">
+                      Last updated: {new Date(p.last_updated).toLocaleString()}
+                    </div>
                   </div>
+                  {/* <Link
+                    to={`/bookreader/${p.book.id}`}
+                    className="flex items-center gap-1 px-3 py-2 bg-blue-500 text-white text-base rounded-[50px] shadow hover:bg-blue-600 transition"
+                  >
+                    <FaBookOpen /> Continue
+                  </Link> */}
+                  <Link
+                    to={`/bookreader/${p.book.id}`}
+                    state={{ currentPage: p.current_page }}   // ✅ send saved page
+                    className="flex items-center gap-1 px-3 py-2 bg-blue-500 text-white text-base rounded-[50px] shadow hover:bg-blue-600 transition"
+                  >
+                    <FaBookOpen /> Continue
+                  </Link>
                 </div>
               ))
             )}
           </div>
 
-          {/* Bookmarked Books */}
-          <div className="bg-white p-4 sm:p-6 rounded-2xl shadow">
-            <h3 className="text-lg sm:text-xl font-bold mb-4">Bookmarked Books</h3>
-            {bookmarks.length === 0 ? (
-              <p className="text-gray-500">No bookmarks yet</p>
-            ) : (
-              bookmarks.map((b, i) => (
-                <div
-                  key={i}
-                  className="flex flex-col sm:flex-row items-start sm:items-center justify-between border-b py-3 last:border-b-0"
-                >
-                  <div className="flex items-start sm:items-center flex-col sm:flex-row">
+          {/* RIGHT COL: History + Bookmarks (stacked vertically) */}
+          <div className="flex flex-col gap-6">
+            {/* Reading History */}
+            <div className="bg-white p-4 sm:p-6 rounded-2xl shadow flex-1">
+              <h3 className="text-lg sm:text-xl font-bold mb-4">Reading History</h3>
+              {history.length === 0 ? (
+                <p className="text-gray-500">No completed books yet</p>
+              ) : (
+                history.map((h, i) => (
+                  <div
+                    key={i}
+                    className="flex items-start sm:items-center flex-col sm:flex-row border-b py-3 last:border-b-0"
+                  >
                     <img
-                      src={fixImageUrl(b.book.image)}
-                      alt={b.book.title}
-                      className="w-20 h-30 object-cover shadow-2xl rounded-xl mb-2 sm:mb-0 sm:mr-3"
+                      src={fixImageUrl(h.book.image)}
+                      alt={h.book.title}
+                      className="w-20 h-30 object-cover rounded mb-2 sm:mb-0 sm:mr-3"
                     />
                     <div className="text-center sm:text-left">
-                      <p className="font-bold">{b.book.title}</p>
-                      <p className="text-sm text-gray-500">{b.book.author}</p>
+                      <p className="font-bold">{h.book.title}</p>
+                      <p className="text-sm text-gray-500">by {h.book.author}</p>
+                      <p className="text-xs text-gray-400">
+                        Completed on {h.completed_on}
+                      </p>
                     </div>
                   </div>
-                  <div className="flex gap-3 mt-2 sm:mt-0 flex-wrap">
-                    <Link
-                      to={`/bookreader/${b.book.id}`}
-                      className="flex items-center gap-1 px-3 py-2 bg-blue-500 text-white text-base rounded-[50px] mt-6 shadow hover:bg-blue-600 transition"
-                    >
-                      <FaBookOpen /> Read Now
-                    </Link>
-                    <button
-                      onClick={() => handleRemoveBookmark(b.book.id)}
-                      className="mt-5 text-lg text-red-500 hover:text-red-700"
-                    >
-                      <FaTrash />
-                    </button>
+                ))
+              )}
+            </div>
+
+            {/* Bookmarked Books */}
+            <div className="bg-white p-4 sm:p-6 rounded-2xl shadow flex-1">
+              <h3 className="text-lg sm:text-xl font-bold mb-4">Bookmarked Books</h3>
+              {bookmarks.length === 0 ? (
+                <p className="text-gray-500">No bookmarks yet</p>
+              ) : (
+                bookmarks.map((b, i) => (
+                  <div
+                    key={i}
+                    className="flex flex-col sm:flex-row items-start sm:items-center justify-between border-b py-3 last:border-b-0"
+                  >
+                    <div className="flex items-start sm:items-center flex-col sm:flex-row">
+                      <img
+                        src={fixImageUrl(b.book.image)}
+                        alt={b.book.title}
+                        className="w-20 h-30 object-cover shadow-2xl rounded-xl mb-2 sm:mb-0 sm:mr-3"
+                      />
+                      <div className="text-center sm:text-left">
+                        <p className="font-bold">{b.book.title}</p>
+                        <p className="text-sm text-gray-500">{b.book.author}</p>
+                      </div>
+                    </div>
+                    <div className="flex gap-3 mt-2 sm:mt-0 flex-wrap">
+                      <Link
+                        to={`/bookreader/${b.book.id}`}
+                        className="flex items-center gap-1 px-3 py-2 bg-blue-500 text-white text-base rounded-[50px] mt-6 shadow hover:bg-blue-600 transition"
+                      >
+                        <FaBookOpen /> Read Now
+                      </Link>
+                      <button
+                        onClick={() => handleRemoveBookmark(b.book.id)}
+                        className="mt-5 text-lg text-red-500 hover:text-red-700"
+                      >
+                        <FaTrash />
+                      </button>
+                    </div>
                   </div>
-                </div>
-              ))
-            )}
+                ))
+              )}
+            </div>
           </div>
         </div>
       </div>

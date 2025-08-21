@@ -44,3 +44,27 @@ class ContactMessage(models.Model):
 
     def __str__(self):
         return f"{self.name} - {self.subject}"
+
+
+
+
+from django.db import models
+from django.contrib.auth.models import User
+from books.models import Book
+
+class ReadingProgress(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="reading_progress")
+    book = models.ForeignKey(Book, on_delete=models.CASCADE)
+    current_page = models.PositiveIntegerField(default=1)
+    total_pages = models.PositiveIntegerField(default=1)
+    last_updated = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        unique_together = ('user', 'book')
+
+    @property
+    def progress_percent(self):
+        return round((self.current_page / self.total_pages) * 100, 2) if self.total_pages else 0
+
+    def __str__(self):
+        return f"{self.user.username} - {self.book.title}: {self.progress_percent}%"

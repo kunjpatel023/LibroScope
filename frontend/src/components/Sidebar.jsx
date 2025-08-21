@@ -11,6 +11,7 @@ import {
   FaSignOutAlt,
   FaChevronLeft,
   FaChevronRight,
+  FaPlusCircle,
 } from "react-icons/fa";
 import axios from "axios";
 import { motion, AnimatePresence } from "framer-motion";
@@ -19,10 +20,10 @@ export default function Sidebar({ collapsed, setCollapsed }) {
   const location = useLocation();
   const navigate = useNavigate();
   const [username, setUsername] = useState("");
+  const [isSuperuser, setIsSuperuser] = useState(false);
 
   const BASE_URL = "http://127.0.0.1:8000";
 
-  // Fetch logged-in user's username
   useEffect(() => {
     const token = localStorage.getItem("access");
     if (!token) return;
@@ -34,11 +35,17 @@ export default function Sidebar({ collapsed, setCollapsed }) {
         if (res.data && res.data.profile && res.data.profile.user) {
           setUsername(res.data.profile.user.username);
         }
+        if (res.data && res.data.is_superuser !== undefined) {
+          setIsSuperuser(res.data.is_superuser);
+        }
       })
       .catch((err) => {
         console.error("Error fetching username:", err);
       });
   }, []);
+
+
+
 
   const menuItems = [
     { name: "Dashboard", icon: <FaHome />, path: "/dashboard" },
@@ -52,6 +59,18 @@ export default function Sidebar({ collapsed, setCollapsed }) {
     { name: "Contact", icon: <FaPhoneAlt />, path: "/contact" },
     { name: "About", icon: <FaInfoCircle />, path: "/about" },
     { name: "Pricing", icon: <FaTags />, path: "/subscription" },
+    // { name: "Add Book", icon: <FaPlusCircle />, path: "/add-book", superOnly: true },
+
+    ...(isSuperuser
+      ? [
+          {
+            name: "Add Book",
+            icon: <FaPlusCircle />,
+            path: "/add-book",
+            // external: false,
+          },
+        ]
+      : []),
   ];
 
   return (
@@ -65,7 +84,7 @@ export default function Sidebar({ collapsed, setCollapsed }) {
     >
       {/* Logo */}
       <div className="flex items-center justify-center p-4 border-b border-gray-200 dark:border-gray-700">
-        <div className="flex items-center space-x-2 transition-all duration-500">
+        <div className="flex items-center space-x-2">
           <div className="w-8 h-8 rounded-full bg-blue-600 flex items-center justify-center text-white font-bold">
             L
           </div>
@@ -91,29 +110,32 @@ export default function Sidebar({ collapsed, setCollapsed }) {
           )}
         </button>
       </div>
-
       {/* Menu Items */}
       <nav className="relative flex-1 mt-4 space-y-5">
         {menuItems.map((item) => {
+           if (item.superOnly && !isSuperuser) return null; // hide
           const isActive = location.pathname === item.path;
           return (
             <Link
               key={item.name}
               to={item.path}
               className={`relative flex items-center rounded-2xl transition-all duration-500 ease-in-out
-                ${collapsed ? "justify-center px-0 py-3" : "justify-start px-4 py-2 mx-2"}
-              `}
+          ${
+            collapsed
+              ? "justify-center px-0 py-3"
+              : "justify-start px-4 py-2 mx-2"
+          }
+        `}
             >
-              {/* Animate Active Background */}
               <AnimatePresence>
-                {isActive && (
+                {isActive  && (
                   <motion.div
                     layoutId="activeBackground"
                     className="absolute inset-0 bg-white dark:bg-gray-800 rounded-2xl shadow-2xl"
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     exit={{ opacity: 0 }}
-                    transition={{ type: "spring", stiffness: 300, damping: 30 }}
+                    transition={{ type: "spring", stiffness: 400, damping: 30 }}
                   />
                 )}
               </AnimatePresence>
@@ -125,12 +147,11 @@ export default function Sidebar({ collapsed, setCollapsed }) {
                   scale: isActive ? 1.2 : 1,
                   color: isActive ? "#2563eb" : "#374151",
                 }}
-                transition={{ type: "spring", stiffness: 300, damping: 20 }}
               >
                 {item.icon}
               </motion.span>
 
-              {/* Text (hidden in collapsed) */}
+              {/* Label */}
               {!collapsed && (
                 <motion.span
                   className="relative z-10 ml-4 font-semibold"
@@ -138,7 +159,6 @@ export default function Sidebar({ collapsed, setCollapsed }) {
                     scale: isActive ? 1.1 : 1,
                     color: isActive ? "#2563eb" : "#374151",
                   }}
-                  transition={{ type: "spring", stiffness: 250, damping: 20 }}
                 >
                   {item.name}
                 </motion.span>
@@ -171,7 +191,10 @@ export default function Sidebar({ collapsed, setCollapsed }) {
         }`}
       >
         <button className="flex items-center text-red-500 hover:text-red-600">
-          <Link to="/auth" className={`${collapsed ? "" : "ml-6 flex items-center"}`}>
+          <Link
+            to="/auth"
+            className={`${collapsed ? "" : "ml-6 flex items-center"}`}
+          >
             <FaSignOutAlt />
             {!collapsed && <span className="ml-2">Logout</span>}
           </Link>
@@ -180,3 +203,5 @@ export default function Sidebar({ collapsed, setCollapsed }) {
     </div>
   );
 }
+
+

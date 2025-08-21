@@ -4,7 +4,7 @@ import { FaEnvelope, FaLock, FaUser, FaGoogle, FaTwitter } from "react-icons/fa"
 import axios from "axios";
 
 export default function AuthPage() {
-  const [mode, setMode] = useState("login"); // "login" | "signup" | "reset"
+  const [mode, setMode] = useState("login");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
@@ -46,7 +46,7 @@ export default function AuthPage() {
         username: fullName,
         email,
         password,
-        password2: confirmPassword, // match serializer
+        password2: confirmPassword, 
       });
       alert("Account created! Please login.");
       setMode("login");
