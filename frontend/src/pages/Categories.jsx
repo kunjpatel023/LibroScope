@@ -208,11 +208,11 @@ export default function Categories() {
                   <img
                     src={book.image}
                     alt={book.title}
-                    className="w-20 h-30 object-cover rounded-xl"
+                    className="w-20 h-30 object-cover rounded-xl border border-[#C0B89F]"
                   />
                   <div>
                     <h4 className="font-semibold">{book.title}</h4>
-                    <p className="text-sm text-gray-500">{book.category}</p>
+                    <p className="text-sm text-gray-500">{book.author}</p>
                   </div>
                 </div>
                 <div className="flex items-center gap-3">

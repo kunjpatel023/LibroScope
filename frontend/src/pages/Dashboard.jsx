@@ -127,7 +127,7 @@ export default function Dashboard() {
                   <h2 className="text-base sm:text-lg font-semibold text-black">
                     {book.title}
                   </h2>
-                  <p className="text-sm text-[#333333]">{book.category}</p>
+                  <p className="text-sm text-[#333333]">{book.author}</p>
                 </div>
               </div>
               <div className="flex gap-2 mt-3 sm:mt-0">

@@ -134,12 +134,23 @@ export default function AuthPage() {
 
             <div className="my-4 text-center text-gray-400 text-xs sm:text-sm">Or continue with</div>
             <div className="flex gap-3 justify-center">
-              <button className="flex items-center gap-2 px-3 py-2 bg-gray-100 rounded-lg text-xs sm:text-sm">
+              <a
+                href="https://www.google.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-2 px-3 py-2 bg-gray-100 rounded-lg text-xs sm:text-sm hover:bg-gray-200 transition"
+              >
                 <FaGoogle /> Google
-              </button>
-              <button className="flex items-center gap-2 px-3 py-2 bg-gray-100 rounded-lg text-xs sm:text-sm">
+              </a>
+
+              <a
+                href="https://www.x.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-2 px-3 py-2 bg-gray-100 rounded-lg text-xs sm:text-sm hover:bg-gray-200 transition"
+              >
                 <FaTwitter /> Twitter
-              </button>
+              </a>
             </div>
 
             <p className="text-center mt-6 text-xs sm:text-sm text-gray-600">

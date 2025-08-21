@@ -111,7 +111,7 @@ export default function Sidebar({ collapsed, setCollapsed }) {
         </button>
       </div>
       {/* Menu Items */}
-      <nav className="relative flex-1 mt-4 space-y-5">
+      <nav className="relative flex-1 mt-4 space-y-5 ">
         {menuItems.map((item) => {
            if (item.superOnly && !isSuperuser) return null; // hide
           const isActive = location.pathname === item.path;
@@ -119,7 +119,7 @@ export default function Sidebar({ collapsed, setCollapsed }) {
             <Link
               key={item.name}
               to={item.path}
-              className={`relative flex items-center rounded-2xl transition-all duration-500 ease-in-out
+              className={`relative flex items-center rounded-2xl transition-all duration-500 ease-in-out hover:bg-gray-200
           ${
             collapsed
               ? "justify-center px-0 py-3"
