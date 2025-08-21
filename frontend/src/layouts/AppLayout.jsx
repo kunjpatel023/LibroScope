@@ -1,32 +1,32 @@
-import { Outlet, useLocation } from "react-router-dom";
-import Sidebar from "../components/Sidebar";
-import { useState, useEffect } from "react";
+// import { Outlet, useLocation } from "react-router-dom";
+// import Sidebar from "../components/Sidebar";
+// import { useState, useEffect } from "react";
 
-export default function AppLayout() {
-  const location = useLocation();
-  const [collapsed, setCollapsed] = useState(false);
+// export default function AppLayout() {
+//   const location = useLocation();
+//   const [collapsed, setCollapsed] = useState(false);
 
-  // useEffect(() => {
-  //   if (location.pathname === "/dashboard") {
-  //     setCollapsed(false); // Expand for dashboard
-  //   } else {
-  //     setCollapsed(true); // Collapse for all other pages
-  //   }
-  // }, [location.pathname]);
+//   // useEffect(() => {
+//   //   if (location.pathname === "/dashboard") {
+//   //     setCollapsed(false); // Expand for dashboard
+//   //   } else {
+//   //     setCollapsed(true); // Collapse for all other pages
+//   //   }
+//   // }, [location.pathname]);
 
-  return (
-    // Prevent outer scrollbar, make whole layout take full height
-    <div className="flex h-screen overflow-hidden bg-[#f0efe9] ">
-      <Sidebar collapsed={collapsed} setCollapsed={setCollapsed} />
+//   return (
+//     // Prevent outer scrollbar, make whole layout take full height
+//     <div className="flex h-screen overflow-hidden bg-[#f0efe9] ">
+//       <Sidebar collapsed={collapsed} setCollapsed={setCollapsed} />
 
-      {/* Main content area - only this scrolls */}
-      <div className="flex-1 overflow-y-auto m-5 bg-[#f0efe9]">
+//       {/* Main content area - only this scrolls */}
+//       <div className="flex-1 overflow-y-auto m-5 bg-[#f0efe9]">
 
-        <Outlet />
-      </div>
-    </div>
-  );
-}
+//         <Outlet />
+//       </div>
+//     </div>
+//   );
+// }
 
 
 
@@ -71,3 +71,27 @@ export default function AppLayout() {
 //     </div>
 //   );
 // }
+
+
+
+
+
+import { Outlet } from "react-router-dom";
+import Sidebar from "../components/Sidebar";
+import { useState } from "react";
+
+export default function AppLayout() {
+  const [collapsed, setCollapsed] = useState(false);
+  const [mobileOpen, setMobileOpen] = useState(false);
+
+  return (
+    <div className="flex h-screen bg-[#f0efe9]">
+      <Sidebar collapsed={collapsed} setCollapsed={setCollapsed} mobileOpen={mobileOpen} setMobileOpen={setMobileOpen} />
+
+      {/* Main Content */}
+      <div className="flex-1 overflow-y-auto m-3 rounded-2xl bg-[#f0efe9]">
+        <Outlet />
+      </div>
+    </div>
+  );
+}

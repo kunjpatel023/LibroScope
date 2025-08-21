@@ -9,6 +9,13 @@ from transformers import pipeline
 from googletrans import Translator
 import hashlib
 from .models import PDFSummary
+from gtts import gTTS
+from django.http import JsonResponse
+from rest_framework.decorators import api_view
+from rest_framework.parsers import JSONParser
+import os, uuid
+
+
 
 summarizer = pipeline("summarization", model="sshleifer/distilbart-cnn-12-6")
 
@@ -119,3 +126,30 @@ def translate_summary(request):
 
     except Exception as e:
         return Response({"error": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+
+
+
+
+@api_view(["POST"])
+def summary_to_speech(request):
+    try:
+        data = JSONParser().parse(request)
+        text = data.get("text")
+
+        if not text:
+            return JsonResponse({"error": "No text provided for TTS."}, status=400)
+
+        # Unique filename
+        filename = f"tts_{uuid.uuid4().hex}.mp3"
+        filepath = os.path.join("media", filename)
+
+        # Create TTS file
+        tts = gTTS(text=text, lang="en")
+        tts.save(filepath)
+
+        return JsonResponse(
+            {"audio_url": f"http://localhost:8000/media/{filename}"}, status=200
+        )
+    except Exception as e:
+        return JsonResponse({"error": str(e)}, status=500)

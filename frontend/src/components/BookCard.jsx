@@ -28,18 +28,31 @@ export default function BookCard({ book }) {
   };
 
   return (
+    // <div
+    //   className="
+    //     relative 
+    //     w-32 sm:w-36 md:w-40   /* smaller width */
+    //     h-52 sm:h-56 md:h-60   /* smaller height */
+    //     bg-white dark:bg-gray-800 
+    //     rounded-2xl shadow-md
+    //     overflow-hidden group cursor-pointer
+    //     transition-all duration-300
+    //     hover:shadow-[0_10px_40px_rgba(0,0,0,1)] hover:-translate-y-3
+    //   "
+    // >
     <div
-      className="
-        relative 
-        w-32 sm:w-36 md:w-40   /* smaller width */
-        h-52 sm:h-56 md:h-60   /* smaller height */
-        bg-white dark:bg-gray-800 
-        rounded-2xl shadow-md
-        overflow-hidden group cursor-pointer
-        transition-all duration-300
-        hover:shadow-[0_10px_40px_rgba(0,0,0,1)] hover:-translate-y-3
-      "
-    >
+  className="
+    relative 
+    w-32 sm:w-36 md:w-40 
+    h-48 sm:h-54 md:h-60 
+    bg-white dark:bg-gray-800 
+    rounded-2xl shadow-md
+    overflow-hidden group cursor-pointer
+    transition-all duration-300
+    hover:shadow-[0_10px_40px_rgba(0,0,0,0.5)] hover:-translate-y-2
+  "
+>
+
       {/* Book Cover */}
       <img
         src={

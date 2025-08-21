@@ -44,9 +44,6 @@ export default function Sidebar({ collapsed, setCollapsed }) {
       });
   }, []);
 
-
-
-
   const menuItems = [
     { name: "Dashboard", icon: <FaHome />, path: "/dashboard" },
     { name: "Categories", icon: <FaBookOpen />, path: "/categories" },
@@ -76,10 +73,10 @@ export default function Sidebar({ collapsed, setCollapsed }) {
   return (
     <div
       className={`flex flex-col rounded-[50px] shadow-[0_20px_50px_rgba(0,0,0,0.25)]
-      h-[calc(100vh-50px)] 
-      bg-[#f7f9fa] dark:bg-gray-900 
-      transition-all duration-500 ease-in-out 
-      mt-6 mb-4 ml-6 mr-2.5 pb-4 sticky top-5 
+      h-[calc(100vh-50px)]
+      bg-[#f7f9fa] dark:bg-gray-900
+      transition-all duration-500 ease-in-out
+      mt-6 mb-4 ml-6 mr-2.5 pb-4 sticky top-5
       ${collapsed ? "w-20" : "w-64"}`}
     >
       {/* Logo */}
@@ -111,62 +108,62 @@ export default function Sidebar({ collapsed, setCollapsed }) {
         </button>
       </div>
       {/* Menu Items */}
-      <nav className="relative flex-1 mt-4 space-y-5 ">
-        {menuItems.map((item) => {
-           if (item.superOnly && !isSuperuser) return null; // hide
-          const isActive = location.pathname === item.path;
-          return (
-            <Link
-              key={item.name}
-              to={item.path}
-              className={`relative flex items-center rounded-2xl transition-all duration-500 ease-in-out hover:bg-gray-200
-          ${
-            collapsed
-              ? "justify-center px-0 py-3"
-              : "justify-start px-4 py-2 mx-2"
-          }
-        `}
-            >
-              <AnimatePresence>
-                {isActive  && (
-                  <motion.div
-                    layoutId="activeBackground"
-                    className="absolute inset-0 bg-white dark:bg-gray-800 rounded-2xl shadow-2xl"
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    exit={{ opacity: 0 }}
-                    transition={{ type: "spring", stiffness: 400, damping: 30 }}
-                  />
-                )}
-              </AnimatePresence>
+<nav className="relative flex-1 mt-4 space-y-5 ">
+  {menuItems.map((item) => {
+     if (item.superOnly && !isSuperuser) return null; // hide
+    const isActive = location.pathname === item.path;
+    return (
+      <Link
+        key={item.name}
+        to={item.path}
+        className={`relative flex items-center rounded-2xl transition-all duration-500 ease-in-out hover:bg-gray-200
+    ${
+      collapsed
+        ? "justify-center px-0 py-3"
+        : "justify-start px-4 py-2 mx-2"
+    }
+  `}
+      >
+        <AnimatePresence>
+          {isActive  && (
+            <motion.div
+              layoutId="activeBackground"
+              className="absolute inset-0 bg-white dark:bg-gray-800 rounded-2xl shadow-2xl"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ type: "spring", stiffness: 400, damping: 30 }}
+            />
+          )}
+        </AnimatePresence>
 
-              {/* Icon */}
-              <motion.span
-                className="relative z-10 text-lg"
-                animate={{
-                  scale: isActive ? 1.2 : 1,
-                  color: isActive ? "#2563eb" : "#374151",
-                }}
-              >
-                {item.icon}
-              </motion.span>
+        {/* Icon */}
+        <motion.span
+          className="relative z-10 text-lg"
+          animate={{
+            scale: isActive ? 1.2 : 1,
+            color: isActive ? "#2563eb" : "#374151",
+          }}
+        >
+          {item.icon}
+        </motion.span>
 
-              {/* Label */}
-              {!collapsed && (
-                <motion.span
-                  className="relative z-10 ml-4 font-semibold"
-                  animate={{
-                    scale: isActive ? 1.1 : 1,
-                    color: isActive ? "#2563eb" : "#374151",
-                  }}
-                >
-                  {item.name}
-                </motion.span>
-              )}
-            </Link>
-          );
-        })}
-      </nav>
+        {/* Label */}
+        {!collapsed && (
+          <motion.span
+            className="relative z-10 ml-4 font-semibold"
+            animate={{
+              scale: isActive ? 1.1 : 1,
+              color: isActive ? "#2563eb" : "#374151",
+            }}
+          >
+            {item.name}
+          </motion.span>
+        )}
+      </Link>
+    );
+  })}
+</nav>
 
       {/* Profile Section */}
       <div
@@ -203,5 +200,10 @@ export default function Sidebar({ collapsed, setCollapsed }) {
     </div>
   );
 }
+
+
+
+
+
 
 

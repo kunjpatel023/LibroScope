@@ -15,6 +15,7 @@ export default function Dashboard() {
   const [newestBooks, setNewestBooks] = useState([]);
   const [recommendedBooks, setRecommendedBooks] = useState([]);
 
+  
   // Fetch bookmarks
   useEffect(() => {
     if (token) {
@@ -92,68 +93,124 @@ export default function Dashboard() {
       </h2>
 
       {view === "grid" ? (
-        <div className="grid mx-10 grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6 ">
-          {books.map((book, i) => (
-            <motion.div
-              key={book.id}
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: i * 0.05 }}
-            >
-              <BookCard book={book} />
-            </motion.div>
-          ))}
-        </div>
+        // <div className="grid mx-10 grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6 ">
+        //   {books.map((book, i) => (
+        //     <motion.div
+        //       key={book.id}
+        //       initial={{ opacity: 0, y: 10 }}
+        //       animate={{ opacity: 1, y: 0 }}
+        //       transition={{ delay: i * 0.05 }}
+        //     >
+        //       <BookCard book={book} />
+        //     </motion.div>
+        //   ))}
+        // </div>
+
+<div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 place-items-center">
+  {books.map((book, i) => (
+    <motion.div
+      key={book.id}
+      initial={{ opacity: 0, y: 10 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ delay: i * 0.05 }}
+    >
+      <BookCard book={book} />
+    </motion.div>
+  ))}
+</div>
+
       ) : (
+        // <div className="flex flex-col gap-4">
+        //   {books.map((book, i) => (
+        //     <motion.div
+        //       key={book.id}
+        //       initial={{ opacity: 0, y: 10 }}
+        //       animate={{ opacity: 1, y: 0 }}
+        //       transition={{ delay: i * 0.05 }}
+        //       className="flex flex-col sm:flex-row sm:items-center justify-between
+        //       bg-[#f7f9fa] 
+        //       rounded-4xl shadow-md hover:shadow-lg transition-all
+        //       overflow-hidden h-40 w-full p-4"
+        //     >
+        //       <div className="flex items-center gap-4">
+        //         <img
+        //           src={book.image}
+        //           alt={book.title}
+        //           className="w-16 h-30 sm:w-20 sm:h-30 object-cover rounded-lg border border-[#C0B89F]"
+        //         />
+        //         <div>
+        //           <h2 className="text-base sm:text-lg font-semibold text-black">
+        //             {book.title}
+        //           </h2>
+        //           <p className="text-sm text-[#333333]">{book.author}</p>
+        //         </div>
+        //       </div>
+        //       <div className="flex gap-2 mt-3 sm:mt-0">
+        //         <button
+        //           onClick={() => handleBookmark(book.id)}
+        //           className={`transition ${
+        //             bookmarkedIds.includes(book.id)
+        //               ? "text-yellow-400"
+        //               : "text-black hover:text-yellow-400"
+        //           }`}
+        //         >
+        //           <FaBookmark className="w-5 h-5" />
+        //         </button>
+        //         <button
+        //           onClick={() => navigate(`/bookreader/${book.id}`)}
+        //           className="px-3 py-1 text-sm sm:text-base
+        //           bg-blue-500
+        //           text-white font-medium rounded-full shadow
+        //           hover:scale-105 transition"
+        //         >
+        //           Read Now
+        //         </button>
+        //       </div>
+        //     </motion.div>
+        //   ))}
+        // </div>
         <div className="flex flex-col gap-4">
-          {books.map((book, i) => (
-            <motion.div
-              key={book.id}
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: i * 0.05 }}
-              className="flex flex-col sm:flex-row sm:items-center justify-between
-              bg-[#f7f9fa] 
-              rounded-4xl shadow-md hover:shadow-lg transition-all
-              overflow-hidden h-40 w-full p-4"
-            >
-              <div className="flex items-center gap-4">
-                <img
-                  src={book.image}
-                  alt={book.title}
-                  className="w-16 h-30 sm:w-20 sm:h-30 object-cover rounded-lg border border-[#C0B89F]"
-                />
-                <div>
-                  <h2 className="text-base sm:text-lg font-semibold text-black">
-                    {book.title}
-                  </h2>
-                  <p className="text-sm text-[#333333]">{book.author}</p>
-                </div>
-              </div>
-              <div className="flex gap-2 mt-3 sm:mt-0">
-                <button
-                  onClick={() => handleBookmark(book.id)}
-                  className={`transition ${
-                    bookmarkedIds.includes(book.id)
-                      ? "text-yellow-400"
-                      : "text-black hover:text-yellow-400"
-                  }`}
-                >
-                  <FaBookmark className="w-5 h-5" />
-                </button>
-                <button
-                  onClick={() => navigate(`/bookreader/${book.id}`)}
-                  className="px-3 py-1 text-sm sm:text-base
-                  bg-blue-500
-                  text-white font-medium rounded-full shadow
-                  hover:scale-105 transition"
-                >
-                  Read Now
-                </button>
-              </div>
-            </motion.div>
-          ))}
+  {books.map((book, i) => (
+    <motion.div
+      key={book.id}
+      initial={{ opacity: 0, y: 10 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ delay: i * 0.05 }}
+      className="flex flex-col sm:flex-row sm:items-center justify-between bg-[#f7f9fa] 
+                 rounded-3xl shadow-md hover:shadow-lg transition-all p-4 gap-4"
+    >
+      {/* Book Info */}
+      <div className="flex items-center gap-4 flex-1 min-w-0">
+        <img
+          src={book.image}
+          alt={book.title}
+          className="w-16 h-24 object-cover rounded-lg border border-[#C0B89F]"
+        />
+        <div className="truncate">
+          <h2 className="text-base sm:text-lg font-semibold text-black truncate">{book.title}</h2>
+          <p className="text-sm text-gray-700 truncate">{book.author}</p>
         </div>
+      </div>
+
+      {/* Actions */}
+      <div className="flex gap-2 flex-shrink-0">
+        <button
+          onClick={() => handleBookmark(book.id)}
+          className={`transition ${bookmarkedIds.includes(book.id) ? "text-yellow-400" : "text-black hover:text-yellow-400"}`}
+        >
+          <FaBookmark className="w-5 h-5" />
+        </button>
+        <button
+          onClick={() => navigate(`/bookreader/${book.id}`)}
+          className="px-3 py-1 text-sm sm:text-base bg-blue-500 text-white font-medium rounded-full shadow hover:scale-105 transition"
+        >
+          Read Now
+        </button>
+      </div>
+    </motion.div>
+  ))}
+</div>
+
       )}
     </div>
   );
