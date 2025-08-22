@@ -164,7 +164,9 @@ export default function BookReader() {
   };
 
   if (loading)
-    return <div className="p-8 text-center text-lg font-medium">Loading...</div>;
+    return (
+      <div className="p-8 text-center text-lg font-medium">Loading...</div>
+    );
   if (!book)
     return (
       <div className="p-8 text-center text-red-500 text-lg font-semibold">
@@ -209,7 +211,9 @@ export default function BookReader() {
               <div className="flex flex-wrap gap-3 mt-4 justify-center sm:justify-start">
                 {/* Summary Button */}
                 <button
-                  onClick={() => nav("/summarytranslation", { state: { book } })}
+                  onClick={() =>
+                    nav("/summarytranslation", { state: { book } })
+                  }
                   className="px-4 py-2 bg-indigo-500 hover:bg-indigo-600 text-white font-medium rounded-[50px] shadow-md transition text-sm"
                 >
                   Generate Summary

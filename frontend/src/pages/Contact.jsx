@@ -44,11 +44,12 @@ export default function ContactPage() {
           transition={{ duration: 0.6 }}
           className="text-4xl md:text-5xl font-bold mb-4"
         >
-          Contact <span className="text-blue-600 dark:text-blue-400">LibroScope</span>
+          Contact{" "}
+          <span className="text-blue-600 dark:text-blue-400">LibroScope</span>
         </motion.h1>
         <p className="max-w-2xl mx-auto text-lg">
-          Have questions about <strong>LibroScope</strong>? We're here to help you.
-          Get in touch with us and we’ll respond as soon as possible.
+          Have questions about <strong>LibroScope</strong>? We're here to help
+          you. Get in touch with us and we’ll respond as soon as possible.
         </p>
       </section>
 
@@ -67,8 +68,12 @@ export default function ContactPage() {
               <Mail className="text-blue-500 w-6 h-6 mt-1" />
               <div>
                 <h3 className="font-medium">Email</h3>
-                <p className="text-gray-600 dark:text-gray-400 text-sm">support@libroscope.com</p>
-                <p className="text-gray-600 dark:text-gray-400 text-sm">hello@libroscope.com</p>
+                <p className="text-gray-600 dark:text-gray-400 text-sm">
+                  support@libroscope.com
+                </p>
+                <p className="text-gray-600 dark:text-gray-400 text-sm">
+                  hello@libroscope.com
+                </p>
               </div>
             </div>
 
@@ -77,8 +82,12 @@ export default function ContactPage() {
               <Phone className="text-green-500 w-6 h-6 mt-1" />
               <div>
                 <h3 className="font-medium">Phone</h3>
-                <p className="text-gray-600 dark:text-gray-400 text-sm">+91 98765 43210</p>
-                <p className="text-gray-600 dark:text-gray-400 text-sm">+91 87654 32109</p>
+                <p className="text-gray-600 dark:text-gray-400 text-sm">
+                  +91 98765 43210
+                </p>
+                <p className="text-gray-600 dark:text-gray-400 text-sm">
+                  +91 87654 32109
+                </p>
               </div>
             </div>
 
@@ -114,7 +123,9 @@ export default function ContactPage() {
             whileHover={{ scale: 1.02 }}
             className="p-8 bg-white dark:bg-gray-900 rounded-[50px] shadow-lg"
           >
-            <h2 className="text-2xl font-semibold mb-6">✉️ Send Us a Message</h2>
+            <h2 className="text-2xl font-semibold mb-6">
+              ✉️ Send Us a Message
+            </h2>
             <form className="space-y-4" onSubmit={handleSubmit}>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <input
@@ -168,9 +179,11 @@ export default function ContactPage() {
               </button>
 
               <p className="text-xs text-gray-500 bg-blue-50 p-2 rounded-lg dark:bg-gray-700">
-                <strong className="text-blue-600 dark:text-blue-400">Response Time:</strong> We
-                typically respond within 24 hours during business days. For urgent technical
-                issues, please call our support line.
+                <strong className="text-blue-600 dark:text-blue-400">
+                  Response Time:
+                </strong>{" "}
+                We typically respond within 24 hours during business days. For
+                urgent technical issues, please call our support line.
               </p>
             </form>
           </motion.div>

@@ -205,60 +205,64 @@ export default function Profile() {
         {/* Content grid - Left (Progress) | Right (History + Bookmarks) */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {/* LEFT COL: Reading Progress */}
-{/* LEFT COL: Reading Progress */}
-<div className="bg-white p-3 sm:p-6 rounded-2xl shadow flex flex-col h-full">
-  <h3 className="text-lg sm:text-xl font-bold mb-4">Reading Progress</h3>
-  {progressList.length === 0 ? (
-    <p className="text-gray-500">No books in progress</p>
-  ) : (
-    progressList.map((p, i) => (
-      <div
-        key={i}
-        className="flex flex-col sm:flex-row items-center sm:items-start gap-4 border-b py-4 last:border-b-0"
-      >
-        {/* Book Image */}
-        <img
-          src={fixImageUrl(p.book.image)}
-          alt={p.book.title}
-          className="w-16 h-24 sm:w-20 sm:h-30 object-cover shadow-xl rounded-lg"
-        />
+          {/* LEFT COL: Reading Progress */}
+          <div className="bg-white p-3 sm:p-6 rounded-2xl shadow flex flex-col h-full">
+            <h3 className="text-lg sm:text-xl font-bold mb-4">
+              Reading Progress
+            </h3>
+            {progressList.length === 0 ? (
+              <p className="text-gray-500">No books in progress</p>
+            ) : (
+              progressList.map((p, i) => (
+                <div
+                  key={i}
+                  className="flex flex-col sm:flex-row items-center sm:items-start gap-4 border-b py-4 last:border-b-0"
+                >
+                  {/* Book Image */}
+                  <img
+                    src={fixImageUrl(p.book.image)}
+                    alt={p.book.title}
+                    className="w-16 h-24 sm:w-20 sm:h-30 object-cover shadow-xl rounded-lg"
+                  />
 
-        {/* Book Details */}
-        <div className="flex-1 text-center sm:text-left">
-          <div className="font-bold text-base sm:text-lg">{p.book.title}</div>
-          <div className="text-xs sm:text-sm text-gray-500 mb-1">
-            by {p.book.author}
+                  {/* Book Details */}
+                  <div className="flex-1 text-center sm:text-left">
+                    <div className="font-bold text-base sm:text-lg">
+                      {p.book.title}
+                    </div>
+                    <div className="text-xs sm:text-sm text-gray-500 mb-1">
+                      by {p.book.author}
+                    </div>
+
+                    {/* Progress Bar */}
+                    <div className="w-full bg-gray-200 h-2 sm:h-3 rounded-full my-2">
+                      <div
+                        className="bg-blue-500 h-2 sm:h-3 rounded-full"
+                        style={{ width: `${p.progress_percent}%` }}
+                      />
+                    </div>
+
+                    <div className="text-xs text-gray-500">
+                      {p.current_page} / {p.total_pages} pages •{" "}
+                      {p.progress_percent}%
+                    </div>
+                    <div className="text-[10px] sm:text-xs text-gray-400 mt-1">
+                      Last updated: {new Date(p.last_updated).toLocaleString()}
+                    </div>
+                  </div>
+
+                  {/* Continue Button */}
+                  <Link
+                    to={`/bookreader/${p.book.id}`}
+                    state={{ currentPage: p.current_page }}
+                    className="mt-2 sm:mt-0 px-3 py-2 text-sm sm:text-base bg-blue-500 text-white rounded-[50px] shadow hover:bg-blue-600 transition"
+                  >
+                    <FaBookOpen className="inline mr-1" /> Continue
+                  </Link>
+                </div>
+              ))
+            )}
           </div>
-
-          {/* Progress Bar */}
-          <div className="w-full bg-gray-200 h-2 sm:h-3 rounded-full my-2">
-            <div
-              className="bg-blue-500 h-2 sm:h-3 rounded-full"
-              style={{ width: `${p.progress_percent}%` }}
-            />
-          </div>
-
-          <div className="text-xs text-gray-500">
-            {p.current_page} / {p.total_pages} pages • {p.progress_percent}%
-          </div>
-          <div className="text-[10px] sm:text-xs text-gray-400 mt-1">
-            Last updated: {new Date(p.last_updated).toLocaleString()}
-          </div>
-        </div>
-
-        {/* Continue Button */}
-        <Link
-          to={`/bookreader/${p.book.id}`}
-          state={{ currentPage: p.current_page }}
-          className="mt-2 sm:mt-0 px-3 py-2 text-sm sm:text-base bg-blue-500 text-white rounded-[50px] shadow hover:bg-blue-600 transition"
-        >
-          <FaBookOpen className="inline mr-1" /> Continue
-        </Link>
-      </div>
-    ))
-  )}
-</div>
-
 
           {/* RIGHT COL: History + Bookmarks (stacked vertically) */}
           <div className="flex flex-col gap-6">

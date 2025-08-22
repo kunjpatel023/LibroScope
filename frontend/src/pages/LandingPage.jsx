@@ -9,7 +9,6 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { FaFacebook, FaTwitter, FaLinkedin, FaGithub } from "react-icons/fa";
 
-
 export default function LandingPage({ toggleDark, dark }) {
   const navigate = useNavigate();
   const sectionStyle = { scrollMarginTop: "84px" };
@@ -73,7 +72,7 @@ export default function LandingPage({ toggleDark, dark }) {
     "AI Library",
     "Book Summaries",
     "Translations",
-    "Text-To-Speech"
+    "Text-To-Speech",
   ];
   const [currentText, setCurrentText] = useState(0);
 
@@ -307,7 +306,7 @@ export default function LandingPage({ toggleDark, dark }) {
           {/* Brand Section */}
           <div>
             <h2 className="text-2xl font-bold bg-black bg-clip-text text-transparent">
-            LibroScope
+              LibroScope
             </h2>
             <p className="mt-3 text-sm text-gray-600">
               Your AI-powered eLibrary for summaries, translations, and more.
@@ -320,16 +319,27 @@ export default function LandingPage({ toggleDark, dark }) {
             <h3 className="text-lg font-semibold mb-3">Quick Links</h3>
             <ul className="space-y-2">
               <li>
-                <a href="#home" className="hover:text-purple-500 transition">Home</a>
+                <a href="#home" className="hover:text-purple-500 transition">
+                  Home
+                </a>
               </li>
               <li>
-                <a href="#explore" className="hover:text-purple-500 transition">Explore</a>
+                <a href="#explore" className="hover:text-purple-500 transition">
+                  Explore
+                </a>
               </li>
               <li>
-                <a href="#features" className="hover:text-purple-500 transition">Features</a>
+                <a
+                  href="#features"
+                  className="hover:text-purple-500 transition"
+                >
+                  Features
+                </a>
               </li>
               <li>
-                <a href="#about" className="hover:text-purple-500 transition">About</a>
+                <a href="#about" className="hover:text-purple-500 transition">
+                  About
+                </a>
               </li>
             </ul>
           </div>
@@ -339,13 +349,19 @@ export default function LandingPage({ toggleDark, dark }) {
             <h3 className="text-lg font-semibold mb-3">Support</h3>
             <ul className="space-y-2">
               <li>
-                <a href="#" className="hover:text-purple-500 transition">Help Center</a>
+                <a href="#" className="hover:text-purple-500 transition">
+                  Help Center
+                </a>
               </li>
               <li>
-                <a href="#" className="hover:text-purple-500 transition">Privacy Policy</a>
+                <a href="#" className="hover:text-purple-500 transition">
+                  Privacy Policy
+                </a>
               </li>
               <li>
-                <a href="#" className="hover:text-purple-500 transition">Terms of Service</a>
+                <a href="#" className="hover:text-purple-500 transition">
+                  Terms of Service
+                </a>
               </li>
             </ul>
           </div>
@@ -354,10 +370,18 @@ export default function LandingPage({ toggleDark, dark }) {
           <div>
             <h3 className="text-lg font-semibold mb-3">Follow Us</h3>
             <div className="flex space-x-4 text-xl">
-              <a href="#" className="hover:text-purple-500 transition"><FaFacebook /></a>
-              <a href="#" className="hover:text-purple-500 transition"><FaTwitter /></a>
-              <a href="#" className="hover:text-purple-500 transition"><FaLinkedin /></a>
-              <a href="#" className="hover:text-purple-500 transition"><FaGithub /></a>
+              <a href="#" className="hover:text-purple-500 transition">
+                <FaFacebook />
+              </a>
+              <a href="#" className="hover:text-purple-500 transition">
+                <FaTwitter />
+              </a>
+              <a href="#" className="hover:text-purple-500 transition">
+                <FaLinkedin />
+              </a>
+              <a href="#" className="hover:text-purple-500 transition">
+                <FaGithub />
+              </a>
             </div>
           </div>
         </div>

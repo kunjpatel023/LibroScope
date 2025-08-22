@@ -347,9 +347,7 @@ export default function AuthPage() {
                 />
                 <span
                   className="cursor-pointer text-gray-500"
-                  onClick={() =>
-                    setShowConfirmPassword(!showConfirmPassword)
-                  }
+                  onClick={() => setShowConfirmPassword(!showConfirmPassword)}
                 >
                   {showConfirmPassword ? <FaEyeSlash /> : <FaEye />}
                 </span>

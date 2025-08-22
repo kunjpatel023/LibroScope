@@ -26,14 +26,22 @@ export default function SubscriptionPage() {
       subtitle: "For casual readers",
       monthly: "₹0",
       yearly: "₹0",
-      features: ["5 books per month", "Basic summaries", "Limited translations"],
+      features: [
+        "5 books per month",
+        "Basic summaries",
+        "Limited translations",
+      ],
     },
     {
       title: "Standard",
       subtitle: "For regular readers",
       monthly: "₹99",
       yearly: "₹999",
-      features: ["25 books per month", "Generate summaries", "Unlimited translations"],
+      features: [
+        "25 books per month",
+        "Generate summaries",
+        "Unlimited translations",
+      ],
       popular: true,
     },
     {
@@ -77,11 +85,13 @@ export default function SubscriptionPage() {
           transition={{ duration: 0.6 }}
           className="text-4xl md:text-5xl font-bold mb-4"
         >
-          Subscription <span className="text-blue-600 dark:text-blue-400">Plans</span>
+          Subscription{" "}
+          <span className="text-blue-600 dark:text-blue-400">Plans</span>
         </motion.h1>
         <p className="max-w-2xl mx-auto text-lg">
-          Choose the plan that best fits your reading journey. Unlock access to AI-powered summaries,
-          translations, and interactive reading with LibroScope eLibrary.
+          Choose the plan that best fits your reading journey. Unlock access to
+          AI-powered summaries, translations, and interactive reading with
+          LibroScope eLibrary.
         </p>
       </section>
 
@@ -89,7 +99,7 @@ export default function SubscriptionPage() {
       <section className="py-10 px-6 dark:bg-gray-900">
         <div className="flex justify-center mb-12">
           <div className="flex bg-white dark:bg-gray-800 rounded-full p-1">
-            <button 
+            <button
               onClick={() => setBillingCycle("monthly")}
               className={`px-6 py-2 rounded-full transition-all ${
                 billingCycle === "monthly"

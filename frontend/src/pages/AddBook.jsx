@@ -69,8 +69,8 @@ export default function AddBook() {
           Add New <span className="text-blue-600 dark:text-blue-400">Book</span>
         </motion.h1>
         <p className="max-w-2xl mx-auto text-lg">
-          Help grow <strong>LibroScope</strong> by adding books. Upload cover, PDF,
-          and details so others can enjoy them too.
+          Help grow <strong>LibroScope</strong> by adding books. Upload cover,
+          PDF, and details so others can enjoy them too.
         </p>
       </section>
 

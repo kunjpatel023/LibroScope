@@ -65,7 +65,7 @@ export default function SummaryTranslation() {
         headers,
         body: formData,
       });
-      if (!res.ok) throw new Error(await res.text() || "Failed to summarize");
+      if (!res.ok) throw new Error((await res.text()) || "Failed to summarize");
       const data = await res.json();
       setSummary(data.summary || "");
       setSummaryId(data.summary_id || null);
@@ -114,7 +114,7 @@ export default function SummaryTranslation() {
         headers,
         body: JSON.stringify(payload),
       });
-      if (!res.ok) throw new Error(await res.text() || "Translation failed");
+      if (!res.ok) throw new Error((await res.text()) || "Translation failed");
       const data = await res.json();
       setTranslatedText(data.translated_text || data.translation || "");
       setAudioUrl("");
@@ -138,7 +138,7 @@ export default function SummaryTranslation() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ text: textToSpeak }),
       });
-      if (!res.ok) throw new Error(await res.text() || "TTS failed");
+      if (!res.ok) throw new Error((await res.text()) || "TTS failed");
       const data = await res.json();
       setAudioUrl(data.audio_url);
     } catch (err) {
@@ -165,28 +165,48 @@ export default function SummaryTranslation() {
           transition={{ duration: 0.6 }}
           className="text-4xl md:text-5xl font-bold"
         >
-          Summary <span className="text-blue-600 dark:text-blue-400">& Translation & TTS</span>
+          Summary{" "}
+          <span className="text-blue-600 dark:text-blue-400">
+            & Translation & TTS
+          </span>
         </motion.h1>
         <p className="max-w-2xl mx-auto text-lg mt-3">
-          Upload your document, generate a summary, translate it, and listen to it.
+          Upload your document, generate a summary, translate it, and listen to
+          it.
         </p>
       </section>
 
       {/* Stepper */}
       <div className="flex flex-wrap sm:flex-nowrap items-center justify-center gap-6">
-        <div className={`w-12 h-12 rounded-full flex items-center justify-center ${getStepCircleStyle(1)}`}>
+        <div
+          className={`w-12 h-12 rounded-full flex items-center justify-center ${getStepCircleStyle(
+            1
+          )}`}
+        >
           <Upload size={22} />
         </div>
         <div className="hidden sm:block w-10 h-[2px] bg-gray-300"></div>
-        <div className={`w-12 h-12 rounded-full flex items-center justify-center ${getStepCircleStyle(2)}`}>
+        <div
+          className={`w-12 h-12 rounded-full flex items-center justify-center ${getStepCircleStyle(
+            2
+          )}`}
+        >
           <FileText size={22} />
         </div>
         <div className="hidden sm:block w-10 h-[2px] bg-gray-300"></div>
-        <div className={`w-12 h-12 rounded-full flex items-center justify-center ${getStepCircleStyle(3)}`}>
+        <div
+          className={`w-12 h-12 rounded-full flex items-center justify-center ${getStepCircleStyle(
+            3
+          )}`}
+        >
           <Globe size={22} />
         </div>
         <div className="hidden sm:block w-10 h-[2px] bg-gray-300"></div>
-        <div className={`w-12 h-12 rounded-full flex items-center justify-center ${getStepCircleStyle(4)}`}>
+        <div
+          className={`w-12 h-12 rounded-full flex items-center justify-center ${getStepCircleStyle(
+            4
+          )}`}
+        >
           <Volume2 size={22} />
         </div>
       </div>
@@ -200,11 +220,17 @@ export default function SummaryTranslation() {
           transition={{ duration: 0.5 }}
           className="mt-12 max-w-3xl mx-auto p-8 bg-white dark:bg-gray-900 rounded-[50px] shadow-lg"
         >
-          <h2 className="text-2xl font-semibold mb-6 text-center">📄 Upload Your Document</h2>
+          <h2 className="text-2xl font-semibold mb-6 text-center">
+            📄 Upload Your Document
+          </h2>
           {file ? (
-            <p className="text-md text-green-600 text-center mb-3 break-all">{file.name}</p>
+            <p className="text-md text-green-600 text-center mb-3 break-all">
+              {file.name}
+            </p>
           ) : (
-            <p className="text-sm text-gray-500 mb-3 text-center">No file selected</p>
+            <p className="text-sm text-gray-500 mb-3 text-center">
+              No file selected
+            </p>
           )}
 
           <div className="flex flex-col items-center gap-4">
@@ -217,7 +243,6 @@ export default function SummaryTranslation() {
                 className="hidden"
               />
             </label>
-            
 
             <button
               onClick={handleGenerateSummary}

@@ -105,9 +105,7 @@ export default function Categories() {
             className="text-3xl md:text-5xl font-bold"
           >
             Book{" "}
-            <span className="text-blue-600 dark:text-blue-400">
-              Categories
-            </span>
+            <span className="text-blue-600 dark:text-blue-400">Categories</span>
           </motion.h1>
         </section>
 
@@ -145,9 +143,7 @@ export default function Categories() {
               <button
                 onClick={() => setView("grid")}
                 className={`p-2 rounded-4xl ${
-                  view === "grid"
-                    ? "bg-black text-white"
-                    : "bg-white"
+                  view === "grid" ? "bg-black text-white" : "bg-white"
                 }`}
               >
                 <FaThLarge />
@@ -155,9 +151,7 @@ export default function Categories() {
               <button
                 onClick={() => setView("list")}
                 className={`p-2 rounded-4xl ${
-                  view === "list"
-                    ? "bg-black text-white"
-                    : "bg-white"
+                  view === "list" ? "bg-black text-white" : "bg-white"
                 }`}
               >
                 <FaList />

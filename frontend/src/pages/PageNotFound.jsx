@@ -7,7 +7,6 @@ import Footer from "../components/Footer";
 export default function NotFoundPage() {
   return (
     <div className="bg-[#f0efe9] text-gray-900 min-h-screen flex flex-col">
-
       {/* 404 Section */}
       <section className="flex flex-col items-center justify-center flex-grow px-6 text-center relative overflow-hidden">
         <motion.h1
@@ -20,7 +19,8 @@ export default function NotFoundPage() {
         </motion.h1>
 
         <p className="mt-4 text-lg md:text-xl text-gray-600 max-w-xl">
-          Oops! The page you’re looking for doesn’t exist or may have been moved.
+          Oops! The page you’re looking for doesn’t exist or may have been
+          moved.
         </p>
 
         <div className="mt-8">
@@ -32,7 +32,6 @@ export default function NotFoundPage() {
           </Link>
         </div>
       </section>
-
     </div>
   );
 }
