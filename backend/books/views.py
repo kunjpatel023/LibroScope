@@ -235,7 +235,7 @@ def knn_recommendations(request):
 
     if not interacted_ids:
         # Fallback: newest books
-        newest = Book.objects.all().order_by("-uploaded_at")[:TOP_N]
+        newest = Book.objects.all().order_by("uploaded_at")[:TOP_N]
         return Response(BookSerializer(newest, many=True, context={"request": request}).data)
 
     # --- 2) Build corpus for TF-IDF ---

@@ -51,7 +51,7 @@ export default function Sidebar({ collapsed, setCollapsed }) {
     { name: "Dashboard", icon: <FaHome />, path: "/dashboard" },
     { name: "Categories", icon: <FaBookOpen />, path: "/categories" },
     {
-      name: "Sum + Translation",
+      name: "AI Tools",
       icon: <FaLanguage />,
       path: "/summarytranslation",
     },
@@ -82,7 +82,7 @@ export default function Sidebar({ collapsed, setCollapsed }) {
             to="/"
             className="text-2xl font-bold text-blue-600 flex items-center"
           >
-            Smart<span className="text-gray-800 dark:text-gray-200">Shelf</span>
+            Libro<span className="text-gray-800 dark:text-gray-200">Scope</span>
           </Link>
         </div>
       </nav>
@@ -94,18 +94,19 @@ export default function Sidebar({ collapsed, setCollapsed }) {
         bg-[#f7f9fa] dark:bg-gray-900 
         transition-all duration-500 ease-in-out 
         mt-6 mb-4 ml-6 mr-2.5 pb-4 sticky top-5 
+        overflow-y-auto
         ${collapsed ? "w-20" : "w-64"}`}
       >
         {/* Logo */}
         <div className="flex items-center justify-center p-4 border-b border-gray-200 dark:border-gray-700">
           <div className="flex items-center space-x-2">
             <div className="w-8 h-8 rounded-full bg-blue-600 flex items-center justify-center text-white font-bold">
-              S
+              L
             </div>
             {!collapsed && (
               <span className="font-bold text-black text-xl">
-                Smart
-                <span className="font-bold text-blue-600 text-xl">Shelf</span>
+                Libro
+                <span className="font-bold text-blue-600 text-xl">Scope</span>
               </span>
             )}
           </div>
@@ -126,7 +127,7 @@ export default function Sidebar({ collapsed, setCollapsed }) {
         </div>
 
         {/* Menu Items */}
-        <nav className="relative flex-1 mt-4 space-y-3">
+        <nav className="relative flex-1 mt-4 space-y-5">
           {menuItems.map((item) => {
             const isActive = location.pathname === item.path;
             return (
@@ -229,7 +230,7 @@ export default function Sidebar({ collapsed, setCollapsed }) {
             className="fixed top-0 left-0 bottom-0 z-50 w-64 bg-[#f7f9fa] dark:bg-gray-900 shadow-lg p-4 flex flex-col"
           >
             <div className="flex justify-between items-center mb-6">
-              <span className="text-xl font-bold text-blue-600">SmartShelf</span>
+              <span className="text-xl font-bold text-blue-600">LibroScope</span>
               <button onClick={() => setIsMobileOpen(false)}>
                 <FaTimes className="text-2xl text-gray-700 dark:text-gray-300" />
               </button>

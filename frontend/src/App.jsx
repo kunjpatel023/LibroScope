@@ -18,6 +18,8 @@ import BookReader from "./pages/BookReader";
 import Auth from "./pages/AuthPage";
 import PrivateRoute from "./utils/PrivateRoute";
 import AddBook from "./pages/AddBook";
+import PageNotFound from "./pages/PageNotFound";
+
 
 // ✅ Reusable wrapper for page animations
 function PageWrapper({ children }) {
@@ -54,6 +56,14 @@ export default function App() {
           element={
             <PageWrapper>
               <Auth />
+            </PageWrapper>
+          }
+        />
+        <Route
+          path="*"
+          element={
+            <PageWrapper>
+              <PageNotFound/>
             </PageWrapper>
           }
         />
